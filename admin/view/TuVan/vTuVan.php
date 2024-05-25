@@ -1,26 +1,25 @@
 <!-- trang tuvanchuyengia.php -->
 
-<div class="container-fluid bg-primary mb-5">
-    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
-        <h3 class="display-3 font-weight-bold text-white">Tư vấn trực tiếp với chuyên gia</h3>
-    </div>
-</div>
 <style>
     /* Teacher section styling */
     .teacher-section {
         display: flex;
         align-items: center;
+        margin-bottom: 20px;
     }
 
     .teacher-photo {
         width: 80px;
         height: 80px;
         margin-right: 20px;
+        border-radius: 50%;
+        object-fit: cover;
     }
 
     .teacher-info h5 {
         margin: 0;
         font-size: 1.25rem;
+        font-weight: 600;
     }
 
     .teacher-info p {
@@ -42,34 +41,28 @@
         padding: 1rem;
         height: 400px;
         overflow-y: auto;
+        margin-bottom: 1rem;
     }
 
     .message {
         padding: 10px;
-        border-radius: 5px;
+        border-radius: 10px;
         margin-bottom: 10px;
         max-width: 70%;
+        word-wrap: break-word;
     }
 
     .message-sent {
-        /* background-color: #d1ecf1; */
-        align-self: flex-end; /* Tin nhắn từ người gửi */
+        background-color: #70D6F5;
+        align-self: flex-end;
         margin-left: auto;
-		margin-right: 10px;
-		/* Đặt margin-right để tin nhắn của phuhuynh nằm bên phải */
-		background-color: #70D6F5;
-		padding: 10px;
-		border-radius: 10px;
-		/* float: right; */
+        margin-right: 10px;
     }
 
     .message-received {
         background-color: #f8d7da;
-        align-self: flex-start; /* Tin nhắn từ người nhận */
+        align-self: flex-start;
         margin-left: 10px;
-		/* Đặt margin-left để tin nhắn của chuyenvien nằm bên trái */
-		padding: 10px;
-		border-radius: 10px;
     }
 
     /* Input group styling */
@@ -79,14 +72,28 @@
 
     #message-input {
         height: 45px;
+        border-radius: 0.25rem 0 0 0.25rem;
+        border: 1px solid #dee2e6;
+        padding: 0.5rem;
+        font-size: 1rem;
     }
 
     #send-message-btn {
         height: 45px;
+        border-radius: 0 0.25rem 0.25rem 0;
+        border: 1px solid #007bff;
+        background-color: #007bff;
+        color: #fff;
+        font-size: 1rem;
+    }
+
+    #send-message-btn:hover {
+        background-color: #0056b3;
     }
 </style>
 
 <?php
+
 $idPhuHuynh = $_GET['idPhuHuynh'];
 ?>
 
@@ -97,8 +104,8 @@ $idPhuHuynh = $_GET['idPhuHuynh'];
             <div class="feedback-section">
                 <h4>Phụ Huynh</h4>
                 <?php
-                include_once("controller/TuVanKH/cTuVanKH.php");
-                $mTuVan = new cTuVanChuyenGia();
+                include_once("model/TuVanKH/mTuVanKH.php");
+                $mTuVan = new mTuVanKH();
                 $listcv = $mTuVan->select_ChuyenGia($idPhuHuynh);
                 foreach ($listcv as $cv) {
                 ?>
@@ -107,7 +114,6 @@ $idPhuHuynh = $_GET['idPhuHuynh'];
 ?>
                         <div class="teacher-info">
                             <h5><?php echo $cv['hoTen']; ?></h5>
-                            <p><?php echo $cv['moTa']; ?></p>
                         </div>
                     </div>
                 <?php
@@ -148,7 +154,7 @@ $idPhuHuynh = $_GET['idPhuHuynh'];
             if (message.trim() === '') return;
 
             $.ajax({
-                url: 'View/ajax.php',
+                url: 'view/TuVan/ajax.php',
                 type: 'POST',
                 data: {
                     action: 'send_message',
@@ -159,7 +165,7 @@ $idPhuHuynh = $_GET['idPhuHuynh'];
                 success: function(response) {
                     var result = JSON.parse(response);
                     if (result.success) {
-                        $('#chat-messages').append('<div class="message message-sent">You:' + message + '</div>');
+                        $('#chat-messages').append('<div class="message message-sent">You: ' + message + '</div>');
                         $('#message-input').val('');
                         var chatMessages = document.getElementById('chat-messages');
                         chatMessages.scrollTop = chatMessages.scrollHeight;
@@ -186,7 +192,7 @@ $idPhuHuynh = $_GET['idPhuHuynh'];
 
         function getMessages(sender_id, receiver_id) {
             $.ajax({
-                url: 'View/ajax.php',
+                url: 'view/TuVan/ajax.php',
                 type: 'GET',
                 data: {
                     action: 'get_messages',

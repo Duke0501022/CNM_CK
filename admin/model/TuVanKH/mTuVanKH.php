@@ -39,7 +39,7 @@ class mTuVanKH
         $conn = $p->moketnoi($conn); // Thêm $conn vào đây
         if ($conn) { // Kiểm tra kết nối
             // Thực hiện truy vấn để chèn tin nhắn vào bảng messages
-            $string = "INSERT INTO messages (sender_id, receiver_id, message) VALUES ( '$receiver_id','$sender_id', '$message')";
+            $string = "INSERT INTO messages (sender_id, receiver_id, message) VALUES ( '$sender_id', '$receiver_id','$message')";
             $result = mysqli_query($conn, $string);
             if (!$result) {
                 // Xảy ra lỗi khi thực hiện truy vấn

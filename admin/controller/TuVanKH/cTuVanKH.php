@@ -1,6 +1,6 @@
 <?php
 // include_once("Model/mTuVanChuyenGia.php");
-include_once('model/TuVanKh/mTuVanKH.php');
+include_once('model/TuVanKH/mTuVanKH.php');
 
 class cTuVanChuyenGia
 {

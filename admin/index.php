@@ -76,6 +76,8 @@ if ($_SESSION['Role'] == 1) {
         if (isset($_REQUEST["thongtin"])) {
             include("view/vProfile.php");
         } elseif (isset($_REQUEST["tuvan"])){
+            include_once("view/TuVan/dsPhuHuynh.php");
+        }elseif (isset($_REQUEST["tuvankh"])){
             include_once("view/TuVan/vTuVan.php");
         }
         #QTV
