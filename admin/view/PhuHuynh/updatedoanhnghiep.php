@@ -118,7 +118,7 @@
                             
                       </div>
                           <button type="submit" class="btn btn-primary" name="submit" style="margin-left:50%">Cập nhật</button>
-                          <!-- <button type="submit" class="btn btn-primary" name="reset" >Hủy</button> -->
+                          <button type="reset" class="btn btn-secondary" name="reset">Hủy</button>
                     </div>
                     </div>
                   </div>

@@ -46,17 +46,17 @@ class mTaiKhoan{
 		}
 	}
 	//hàm lấy thông tin người dùng đã đăng nhập vào tài khoản
-	public function select_tt_taikhoan($username,$vaitro){
+	public function select_tt_taikhoan($username,$Role){
 
 		$p = new  clsketnoi();
 		if($p -> ketnoiDB($conn)){
-			if ($vaitro == 1) {
+			if ($Role == 1) {
 				$sql = "SELECT * FROM taikhoan1 JOIN admin ON taikhoan1.username = admin.username WHERE taikhoan1.username = '".$username."'";
-			}elseif ($vaitro == 2){
+			}elseif ($Role == 2){
 				$sql = "SELECT * FROM taikhoan1 JOIN phuhuynh ON taikhoan1.username = phuhuynh.username WHERE taikhoan1.username = '".$username."'";
-			}elseif ($vaitro == 3){
+			}elseif ($Role == 3){
 				$sql = "SELECT * FROM taikhoan1 JOIN chuyenvien ON taikhoan1.username = chuyenvien.username WHERE taikhoan1.username = '".$username."'";
-			}elseif ($vaitro == 4){
+			}elseif ($Role == 4){
 				$sql = "SELECT * FROM taikhoan1 JOIN quantrivien ON taikhoan1.username = quantrivien.username WHERE taikhoan1.username = '".$username."'";
 			}
 			else{

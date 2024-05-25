@@ -66,7 +66,19 @@ if ($_SESSION['Role'] == 1) {
       include("view/CauHoi/delcauhoi.php");
     } elseif (isset($_REQUEST["import"])) {
         include("view/Import/vImport.php");
-    } else {
+    }elseif (isset($_REQUEST["qltt"])) {
+        include("view/TinTuc/quanlitintuc.php");
+    }
+    elseif (isset($_REQUEST["addtt"])) {
+        include("view/TinTuc/addtintuc.php");
+    }
+    elseif (isset($_REQUEST["updatett"])) {
+        include("view/TinTuc/updatetintuc.php");
+    }
+    elseif (isset($_REQUEST["deltintuc"])) {
+        include("view/TinTuc/deltintuc.php");
+    }
+     else {
         include_once("view/content.php");
     }
       #CHUYENVIEN
@@ -79,6 +91,8 @@ if ($_SESSION['Role'] == 1) {
             include_once("view/TuVan/dsPhuHuynh.php");
         }elseif (isset($_REQUEST["tuvankh"])){
             include_once("view/TuVan/vTuVan.php");
+        }else {
+            include_once("view/content.php");
         }
         #QTV
     } elseif ($_SESSION['Role'] == 4) {
@@ -95,6 +109,8 @@ if ($_SESSION['Role'] == 1) {
           
     } elseif(isset($_REQUEST["thongtin"])) {
         include("view/vProfile.php");
+    }else {
+        include_once("view/content.php");
     }
      }
 

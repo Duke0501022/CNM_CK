@@ -169,7 +169,7 @@
                   </div>
                 </div>
                 <button type="submit" id="button" class="btn btn-primary" name="submit" style="margin-left:45%">Thêm khách hàng</button>
-                <!-- <button type="submit" class="btn btn-primary" name="reset" >Reset</button> -->
+                <button type="reset" class="btn btn-secondary" name="reset">Hủy</button>
                 <!-- <input type="submit" value="Thêm Doanh Nghiệp" style="text-align:center"> -->
               </form>
              

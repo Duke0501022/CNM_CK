@@ -131,7 +131,7 @@ if (isset($_POST['dangky'])) {
             $ins_khdn = $user_dn -> add_DN($email,$hinhAnh,$hoTen,$soDienThoai,$gioiTinh, $username);
             if ($ins_khdn == 1) {
               echo "<script>alert('Đăng ký thành công');</script>";
-              echo "<script>window.location.href = 'index?login.php';</script>";
+              echo "<script>window.location.href = 'index.php?login';</script>";
             } else {
               echo "<script>alert('Đăng ký thất bại');</script>";
               echo "<script>window.location.href = 'index.php?register.php';</script>";

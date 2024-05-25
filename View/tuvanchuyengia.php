@@ -216,4 +216,3 @@ function getMessages(sender_id, receiver_id) {
 getMessages(sender_id, receiver_id);
 });
 </script>
-

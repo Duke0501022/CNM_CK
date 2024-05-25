@@ -163,7 +163,7 @@ $(document).ready(function(){
                  
                 </div>
                 <button type="submit" class="btn btn-primary" name="submit" style="margin-left:43%">Thêm chuyên viên</button>
-                <!-- <button type="reset" class="btn btn-primary" >Reset</button> -->
+                <button type="reset" class="btn btn-secondary" name="reset">Hủy</button>
                 <!-- <input type="submit" value="Thêm Doanh Nghiệp" style="text-align:center"> -->
               </form>
               

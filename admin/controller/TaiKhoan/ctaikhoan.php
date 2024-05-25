@@ -142,7 +142,9 @@
                 $_SESSION['password'] = $row['password'];
                 $_SESSION['Role'] = $row['Role'];
                 $_SESSION['login_admin'] = true;
+                
                 $tt_dn = $this -> get_tt_dangnhap($username,$row['Role']);
+                echo "<script>alert('Đăng nhập thành công')</script>";
               
             }else {
                 echo "<script>alert('Đăng nhập thất bại')</script>";

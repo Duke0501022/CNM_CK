@@ -34,8 +34,7 @@ $result = $info->select_info($username);
 </head>
 
 <body>
-  ho '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal">Sửa thông tin</button>';
-                ec<div class="container user-info">
+
     <div class="row justify-content-center">
       <div class="col-md-8">
         <div class="card">

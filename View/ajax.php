@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 include_once(__DIR__ . '/../Model/mTuVanChuyenGia.php');
 
 if (isset($_POST['action']) && $_POST['action'] === 'send_message') {
