@@ -62,22 +62,21 @@ if (isset($_GET['idTinTuc'])) {
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-3" id="danhMuc">
-                <h1>Danh Mục</h1>
-                <ul>
-                    <?php foreach ($danhMucList as $danhMuc) { ?>
-                        <li><a href="?idDanhMuc=<?php echo $danhMuc['idDanhMuc']; ?>"><?php echo $danhMuc['tenDanhMuc']; ?></a></li>
-                    <?php } ?>
-                </ul>
-            </div>
+    
             <div class="col-md-9" id="tinTuc">
                 <h1>Tin Tức</h1>
                 <?php foreach ($tinTucList as $tinTuc) { ?>
                     <!-- <h2><a href="?idTinTuc=<?php //echo $tinTuc['idTinTuc']; ?>"><?php //echo $tinTuc['tieuDe']; ?></a></h2> -->
                     <h2><a href="View/tintuc/showtintuc.php?idTinTuc=<?php echo $tinTuc['idTinTuc']; ?>"><?php echo $tinTuc['tieuDe']; ?></a></h2>
                     <p><?php echo substr($tinTuc['noiDung'], 0, 100); ?>...</p>
-                    <p><img src="<?php echo $tinTuc['hinhAnh']; ?>" alt="<?php echo $tinTuc['tieuDe']; ?>" width="100"></p>
+                    <?php 
+                    if ($tinTuc['hinhAnh'] == NULL) {
+                            echo "<td style='text-align:center'><img src='/assets/uploads/images/user.png' alt='' height='100px' width='150px'></td>";
+                          } else {
+                            echo "<td style='text-align:center'><img src='admin/admin/assets/uploads/images/" . $tinTuc['hinhAnh'] . "' alt='' height='100px' width='300px' style='border-radius: 10px;'></td>";
+
+                          }
+                          ?>
                     <p>Category: <?php echo $tinTuc['tenDanhMuc']; ?></p>
                     <hr>
                 <?php } ?>

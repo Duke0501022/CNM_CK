@@ -103,7 +103,7 @@
                 ?>
                     <div class="teacher-section mb-3">
                     <?php
-                        echo '<img src="/admin/assets/uploads/images/'. $cv["hinhAnh"] . '" alt="Ảnh Giáo Viên" class="teacher-photo img-fluid rounded-circle">';
+                        echo '<img src="admin/admin/assets/uploads/images/'. $cv["hinhAnh"] . '" alt="Ảnh Giáo Viên" class="teacher-photo img-fluid rounded-circle">';
 ?>
                         <div class="teacher-info">
                             <h5><?php echo $cv['hoTen']; ?></h5>

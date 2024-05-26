@@ -112,7 +112,7 @@ if (isset($_REQUEST['logout'])) {
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="index.php?info">Thông tin cá nhân</a>
-                                        <a class="dropdown-item" href="#">Đổi mật khẩu</a>
+                                      
                                         <a class="dropdown-item" href="index.php?xemlichsu">Xem lịch sử</a>
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="index.php?logout">Đăng xuất</a>

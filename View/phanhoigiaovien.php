@@ -73,7 +73,7 @@ if (isset($_GET['idChuyenVien'])) {
       foreach ($listcv as $cv) {
       ?>
         <div class="teacher-section">
-        <img src="<?php echo $cv['hinhAnh']; ?>" alt="Ảnh Giáo Viên" class="teacher-photo"> 
+        <img src="admin/admin/assets/uploads/images/<?php echo $cv['hinhAnh']; ?>" alt="Ảnh Giáo Viên" class="teacher-photo"> 
           <div class="teacher-info">
             <h3><?php echo $cv['hoTen']; ?></h3>
             <p><?php echo $cv['moTa']; ?></p>

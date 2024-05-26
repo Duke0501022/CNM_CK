@@ -104,47 +104,39 @@
 </body>
 <?php
 if (isset($_POST['dangky'])) {
-  if ($_POST['vaitro'] == 2) { 
-     //người dùng 
-        //----------------------------------------------------
-        //----------------------------------------------------
-        //----------------------------------------------------
-        //------------------ĐĂNG KÝ TÀI KHOẢN NGƯỜI DÙNG 
-        //----------------------------------------------------
-        //----------------------------------------------------
-        //----------------------------------------------------
-          $hoTen = $_POST['hoTen'];
-          $soDienThoai = $_POST['sdt'];
-          $hinhAnh = $_POST['hinhAnh'];
-          
-          $email = $_POST['email'];
-          $gioiTinh= $_POST['slgioitinh'];
-          $Role = $_POST['vaitro'];
-          $username = $_POST['username'];
-          $password = $_POST['password'];
-         
+    if ($_POST['vaitro'] == 2) {
+        $hoTen = $_POST['hoTen'];
+        $soDienThoai = $_POST['sdt'];
+        // File upload handling
+        $hinhAnh = $_FILES['hinhAnh']['name']; // Name of the uploaded file
+        $hinhAnh_tmp = $_FILES['hinhAnh']['tmp_name']; // Temporary location of the file
+        // Move uploaded file to desired location
+        move_uploaded_file($hinhAnh_tmp, "../admin/admin/assets/uploads/images/" . $hinhAnh);
+        $email = $_POST['email'];
+        $gioiTinh = $_POST['slgioitinh'];
+        $Role = $_POST['vaitro'];
+        $username = $_POST['username'];
+        $password = $_POST['password'];
 
-          $dk = new cTaiKhoan();
-          $user_dn = new cKHDN();
-          $insert = $dk -> them_taikhoan($username,$password,$Role);
-          if ($insert == 1) {
-            $ins_khdn = $user_dn -> add_DN($email,$hinhAnh,$hoTen,$soDienThoai,$gioiTinh, $username);
+        $dk = new cTaiKhoan();
+        $user_dn = new cKHDN();
+        $insert = $dk->them_taikhoan($username, $password, $Role);
+        if ($insert == 1) {
+            $ins_khdn = $user_dn->add_DN($email, $hinhAnh, $hoTen, $soDienThoai, $gioiTinh, $username);
             if ($ins_khdn == 1) {
-              echo "<script>alert('Đăng ký thành công');</script>";
-              echo "<script>window.location.href = 'index.php?login';</script>";
+                echo "<script>alert('Đăng ký thành công');</script>";
+                echo "<script>window.location.href = 'index.php?login';</script>";
             } else {
-              echo "<script>alert('Đăng ký thất bại');</script>";
-              echo "<script>window.location.href = 'index.php?register.php';</script>";
+                echo "<script>alert('Đăng ký thất bại');</script>";
+                echo "<script>window.location.href = 'index.php?register.php';</script>";
             }
-            
-          }else {
+
+        } else {
             echo "<script>alert('Đăng ký thất bại');</script>";
             echo "<script>window.location.href = 'index.php?register.php';</script>";
-          }
         }
-      }
-    else{
+    } else {
         echo "<br>";
     }
-
- ?>
+}
+?>

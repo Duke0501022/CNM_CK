@@ -104,32 +104,10 @@
     	{
         	$p = new mTaiKhoan();
         	$tt = $p -> select_tt_taikhoan($username,$Role);
-        	if ($Role == 1) { //admin
-				while($row1 = mysqli_fetch_assoc($tt)){
-        		$_SESSION['idAdmin'] = $row1['idAdmin'];
-        		$_SESSION['hoTen'] = $row1['tenAdmin'];
-        		}
-        	}elseif ($Role == 3){ //chuyenvien
-				while($row1 = mysqli_fetch_assoc($tt)){
-        		$_SESSION['MaNVKD'] = $row1['MaNVKD'];
-        		$_SESSION['TenNVKD'] = $row1['TenNVKD'];
-        		$_SESSION['avatar'] = $row1['HinhAnh'];
-        		$_SESSION['loainvkd'] = $row1['LoaiNVKD'];}
-			}elseif ($Role == 4){ //quantrivien
-				while($row1 = mysqli_fetch_assoc($tt)){
-        		$_SESSION['MaNCC'] = $row1['MaNCC'];
-        		$_SESSION['TenNguoiNongDan'] = $row1['TenNguoiNongDan'];
-        		$_SESSION['TenNhaCungCap'] = $row1['TenNhaCungCap'];
-        		$_SESSION['avatar'] = $row1['HinhAnh'];
-        		$_SESSION['diachi'] = $row1['DiaChi'].", ".$row1['TenXa'].", ".$row1['TenHuyen'].", ".$row1['TenTinh'];
-        	}
-			
-        		//thêm session diachi
-			}else{
-
+            return $tt;
 			}
         	
-    	}
+    	
         ////
         public function login($username, $password)
         {

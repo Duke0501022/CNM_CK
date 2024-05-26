@@ -23,7 +23,7 @@ $testUnits = $phanhoi->getTestCV();
         <div class="screening-card">
             <div class="screening-card-header" style="color:Black;">Phản hồi chuyên viên <?= $ChuyenVienName ?></div>
             <div class="screening-card-body">
-                <img class="card-img-top mb-2" src='img/<?php echo $unit['hinhAnh']; ?>' alt="" style="width: 100px; height: 100px; border-radius: 50px;">
+                <img class="card-img-top mb-2" src='admin/admin/assets/uploads/images/<?php echo $unit['hinhAnh']; ?>' alt="" style="width: 100px; height: 100px; border-radius: 50px;">
                 <!-- Thay đổi nội dung phần mô tả tùy thuộc vào cấu trúc dữ liệu của bạn -->
                 <p><?= $moTaChuyenVien ?></p>
                 <!-- Tạo liên kết đến trang làm bài với idUnit tương ứng -->

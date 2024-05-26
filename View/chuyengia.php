@@ -36,7 +36,7 @@ $listcv1 = $tuvan->getTestCG();
                     <div class="screening-card-header" style="color:Black;">Tư vấn chuyên viên <?= $ChuyenVienName ?></div>
                     <div class="screening-card-body">
                         <!-- <img class="card-img-top mb-2" src="<?= $hinhanh ?>" alt="" style="width: 100px; height: 100px; border-radius: 50px;"> -->
-                        <img class="card-img-top mb-2" src='img/<?php echo $cv['hinhAnh']; ?>' alt="" style="width: 100px; height: 100px; border-radius: 50px;">
+                        <img class="card-img-top mb-2" src='admin/admin/assets/uploads/images/<?php echo $cv['hinhAnh']; ?>' alt="" style="width: 100px; height: 100px; border-radius: 50px;">
 
                         <p><?= $moTaChuyenVien ?></p>
                         <a href="index.php?tuvanchuyengia=<?= $idChuyenVien ?>&idChuyenVien=<?= $idChuyenVien ?>" class="btn btn-primary btn-screening">Chọn</a>
