@@ -7,8 +7,10 @@ if (isset($_GET['idTinTuc'])) {
     $tinTucDetail = $tintuc->getTinTuc($idTinTuc);
     if ($tinTucDetail && $tinTucDetail->num_rows > 0) {
         $tinTuc = $tinTucDetail->fetch_assoc();
+    }
+}
 ?>
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,7 +19,7 @@ if (isset($_GET['idTinTuc'])) {
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f7f7f7;
+            background-color: #f8f9fa;
             margin: 0;
             padding: 0;
         }
@@ -27,22 +29,24 @@ if (isset($_GET['idTinTuc'])) {
             align-items: center;
             height: 100vh;
         }
-        .content {
-            background-color: #fff;
+        .content-wrapper {
+            background-color: #ffffff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             max-width: 600px;
             width: 100%;
+            overflow-y: auto;
+            max-height: calc(100vh - 40px);
         }
         h1 {
-            color: #333;
-            border-bottom: 1px solid #333;
+            color: #28a745;
+            border-bottom: 1px solid #28a745;
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
         p {
-            color: #666;
+            color: #6c757d;
             line-height: 1.6;
             margin-bottom: 20px;
         }
@@ -60,15 +64,16 @@ if (isset($_GET['idTinTuc'])) {
             color: #0056b3;
         }
         .back-link {
-            display: block;
+            display: inline-block;
             margin-top: 20px;
             text-align: center;
-            color: #fff;
+            color: #ffffff;
             background-color: #007bff;
             border: 1px solid #007bff;
             padding: 10px 20px;
             border-radius: 5px;
             transition: background-color 0.3s ease;
+            text-decoration: none;
         }
         .back-link:hover {
             background-color: #0056b3;
@@ -77,16 +82,10 @@ if (isset($_GET['idTinTuc'])) {
 </head>
 <body>
     <div class="container">
-        <div class="content">
+        <div class="content-wrapper">
             <h1><?php echo htmlspecialchars($tinTuc['tieuDe']); ?></h1>
             <p><?php echo nl2br(htmlspecialchars($tinTuc['noiDung'])); ?></p>
-            <?php 
-            if ($tinTuc['hinhAnh'] == NULL) {
-                echo "<img src='/assets/uploads/images/user.png' alt='' height='100px' width='150px'>";
-            } else {
-                echo "<img src='admin/admin/assets/uploads/images/" . $tinTuc['hinhAnh'] . "' alt='' height='100px' width='300px'>";
-            }
-            ?>
+           
             <p>Danh mục: <?php echo htmlspecialchars($tinTuc['tenDanhMuc']); ?></p>
             <a href="http://localhost/CNM_Project/index.php?tintuc" class="back-link">Trở về trang chủ</a>
         </div>
@@ -94,11 +93,3 @@ if (isset($_GET['idTinTuc'])) {
 </body>
 </html>
 
-<?php
-    } else {
-        echo "The news article was not found.";
-    }
-} else {
-    echo "No news article specified.";
-}
-?>

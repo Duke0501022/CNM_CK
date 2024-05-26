@@ -86,16 +86,12 @@ if (isset($_REQUEST['logout'])) {
                                 echo '<a href="index.php?tuvantudong" class="dropdown-item">Tư vấn tự động</a>';
                             }
                             if (isset($_SESSION['LoginSuccess']) && $_SESSION['LoginSuccess'] == true) {
-                                echo '<a href="index.php?chuyengia" class="dropdown-item">Tư vấn trực tuyến với chuyên gia</a>';
+                                echo '<a href="index.php?chuyengia" class="dropdown-item">Tư vấn trực tuyến với chuyên viên</a>';
                             }
                             ?>
                         </div>
                     </div>
-                    <?php
-                    if (isset($_SESSION['LoginSuccess']) && $_SESSION['LoginSuccess'] == true) {
-                        echo ' <a href="index.php?phanhoi" class="nav-item nav-link">Phản Hồi</a>';
-                    }
-                    ?>
+                    
                     <a href="index.php?tintuc" class="nav-item nav-link">Tin tức</a>
                     <a href="index.php?lienhe" class="nav-item nav-link">Liên hệ</a>
                 </div>

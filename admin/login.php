@@ -1,4 +1,4 @@
-<?php //session_start(); ?>
+<?php ?>
 <html lang="en">
 	<head>
         <meta charset="utf-8">
@@ -55,7 +55,6 @@
             <hr>
         </div>
         <?php 
-
             include_once("controller/TaiKhoan/ctaikhoan.php");
             $account = new ctaikhoan();
             if (isset($_POST['username'])) {
@@ -66,14 +65,13 @@
             }
             if (isset($_REQUEST['submit'])) {
                 $account->login($us, $pw);
-                if($account){
+                if(isset($_SESSION['idChuyenVien']) ||isset($_SESSION['login_admin'])){
+
                     header("Location:../admin/");
+
                    
-                }else{
-                    echo "<script>alert('Đăng nhập thất bại')</script>";
                 }
             }
-
          ?>
         <nav class="navbar navbar-fixed-bottom" role="navigation">
             <div class="container">

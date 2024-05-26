@@ -219,9 +219,9 @@
             if($p -> moketnoi($conn)){
                 if ($Role == 1) {
                     $sql = "SELECT * FROM taikhoan1 JOIN admin ON taikhoan1.username = admin.username WHERE taikhoan1.username = '".$username."'";
-                }elseif ($Role == 3){
-                    $sql = "SELECT * FROM taikhoan1 JOIN quantrivien ON taikhoan1.username = quantrivien.username WHERE taikhoan1.username = '".$username."'";
                 }elseif ($Role == 4){
+                    $sql = "SELECT * FROM taikhoan1 JOIN quantrivien ON taikhoan1.username = quantrivien.username WHERE taikhoan1.username = '".$username."'";
+                }elseif ($Role == 3){
                     $sql = "SELECT * FROM taikhoan1 JOIN chuyenvien ON taikhoan1.username = chuyenvien.username  WHERE taikhoan1.username = '".$username."'";
                 }
                 $result = mysqli_query($conn,$sql);

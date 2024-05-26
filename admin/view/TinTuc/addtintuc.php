@@ -159,7 +159,7 @@
     $tmp_name = $_FILES["hinhAnh"]["tmp_name"]; // Tên tệp tạm thời trên máy chủ
     
     // Đường dẫn thư mục lưu trữ hình ảnh (chỉnh sửa theo thư mục của bạn)
-    $target_dir = "assets/uploads/images/";
+    $target_dir = "admin/assets/uploads/images/";
     // Đường dẫn đầy đủ tới hình ảnh trên máy chủ
     $target_file = $target_dir . basename($hinhAnh);
 

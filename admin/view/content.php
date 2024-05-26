@@ -134,64 +134,36 @@
           </div>
           <!-- ./col -->
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner" id="chart-container">
-                <canvas id="graph"></canvas>
-                <p>Tỉ lệ kiểm định nông sản</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
+          
+          <div class="row">
+    <div class="col-lg-6">
+        <!-- Pie Chart -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Pie Chart: Tin Tức</h3>
             </div>
-          </div>
-          <!-- ./col -->
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-              <div class="inner" id="barchart-container">
-                <canvas id="barchart" width="600px" height="600px"></canvas>
-                <p>Số lượng người dùng</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
+            <div class="card-body">
+                <canvas id="pieChart" style="height:230px"></canvas>
             </div>
-          </div>
-          <!-- ./col -->
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-              <div class="inner" id="barchart-container">
-                <canvas id="qr_chart" width="600px" height="600px"></canvas>
-                <p>Thống kê đơn đặt hàng</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-            </div>
-          </div>
-          <!-- ./col -->
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner" id="barchart-container">
-                <canvas id="kiemdinhchart" width="600px" height="600px"></canvas>
-                <p>Thống kê số phiếu kiểm định trong tháng</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-            </div>
-          </div>
-          <!-- ./col -->
+            <!-- /.card-body -->
         </div>
-        
+        <!-- /.card -->
+    </div>
+    <div class="col-lg-6">
+        <!-- Bar Chart -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Bar Chart: </h3>
+            </div>
+            <div class="card-body">
+                <canvas id="barChart" style="height:230px"></canvas>
+            </div>
+            <!-- /.card-body -->
         </div>
+        <!-- /.card -->
+    </div>
+</div>
+      
             <!-- /.card -->
           </div>
         </div>
@@ -201,175 +173,76 @@
     </section>
     <!-- /.content -->
   </div>
+  <?php
+  $tinTucData = array(
+    array("title" => "Trẻ em", "views" => 500),
+    array("title" => "Môi trường", "views" => 700),
+    array("title" => "Dấu hiệu", "views" => 300),
+    array("title" => "Học tập", "views" => 400),
+    array("title" => "Ăn uống", "views" => 600)
+);
+?>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-        $(document).ready(function () {
-            showGraph();
-        });
+    // Sample data for the charts
+    var tinTucData = <?php echo json_encode($tinTucData); ?>;
 
+// Extracting labels and data for the charts
+var pieLabels = tinTucData.map(function(item) {
+    return item.title;
+});
 
-        function showGraph(){
-                $.post("API/thongke/api_phanloainongsan.php",
-                function (data){
-                    var labels = [];
-                    var result = [];
-                    for (var i in data) {
-                        labels.push(data[i].status);
-                        result.push(data[i].size_status);
+var pieData = {
+    labels: pieLabels,
+    datasets: [{
+        data: tinTucData.map(function(item) {
+            return item.views;
+        }),
+        backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc']
+    }]
+};
+
+var barLabels = tinTucData.map(function(item) {
+    return item.title;
+});
+
+var barData = {
+    labels: barLabels,
+    datasets: [{
+        label: 'Views',
+        backgroundColor: '#007bff',
+        data: tinTucData.map(function(item) {
+            return item.views;
+        })
+    }]
+};
+
+// Draw the pie chart
+var pieChartCanvas = $('#pieChart').get(0).getContext('2d');
+var pieChart = new Chart(pieChartCanvas, {
+    type: 'pie',
+    data: pieData,
+    options: {
+        maintainAspectRatio: false,
+        responsive: true,
+    }
+});
+
+    // Draw the bar chart
+    var barChartCanvas = $('#barChart').get(0).getContext('2d');
+    var barChart = new Chart(barChartCanvas, {
+        type: 'bar',
+        data: barData,
+        options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
                     }
-                    var pie = $("#graph");
-                    var myChart = new Chart(pie, {
-                        type: 'pie',
-                        data: {
-                            labels: labels,
-                            datasets: [
-                                {
-                                    data: result,
-                                    borderColor: ["rgba(217, 83, 79,1)","rgba(240, 173, 78, 1)","rgba(92, 184, 92, 1)"],
-                                    backgroundColor: ["white","blue","yellow"],
-                                }
-                            ]
-                        },
-                        options: {
-                            title: {
-                                display: true,
-                                text: "Chuyên ngành"
-                            }
-                        }
-                    });
-                });
+                }]
+            }
         }
-  </script>
-  <script>
-        $(document).ready(function () {
-            showbarchart();
-        });
-
-        function showbarchart(){
-        
-            $.post("API/thongke/api_phanloainguoidung.php",
-                function (data){
-                    console.log(data);
-                    var formStatusVar = [];
-                    var total = []; 
-
-                    for (var i in data) {
-                        formStatusVar.push(data[i].status);
-                        total.push(data[i].size_status);
-                    }
-
-                    var options = {
-                        legend: {
-                            display: false
-                        },
-                        scales: {
-                            xAxes: [{
-                                display: true
-                            }],
-                        yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    };
-
-                    var myChart = {
-                        labels: formStatusVar,
-                        datasets: [
-                            {
-                                label: 'Tổng số',
-                                backgroundColor: '#17cbd1',
-                                borderColor: '#46d5f1',
-                                hoverBackgroundColor: '#0ec2b6',
-                                hoverBorderColor: '#42f5ef',
-                                data: total
-                            }
-                        ]
-                    };
-
-                    var bar = $("#barchart"); 
-                    var barGraph = new Chart(bar, {
-                        type: 'bar',
-                        data: myChart,
-                        options: options
-                    });
-
-
-                });
-        }
-  </script>
-  <script type="text/javascript">
-    var ctx = document.getElementById('qr_chart').getContext('2d');
-    var chart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ["January","February","March","April","May","June","July","August","September","October","November","December"],
-        datasets: [{
-          label: "Số đơn hàng",
-          backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: 'rgb(255, 99, 132)',
-          data: [0,10,5,2,20,30,45,50,10,40,34,31],
-        }]
-      },
-      options: {}
     });
-  </script>
-  <script>
-        $(document).ready(function () {
-            showkiemdinhchart();
-        });
-
-        function showkiemdinhchart(){
-        
-            $.post("API/thongke/api_sophieu_kiemdinh_theothang.php",
-                function (data){
-                    console.log(data);
-                    var Thang = [];
-                    var SoPhieuKD = []; 
-
-                    for (var i in data) {
-                        Thang.push(data[i].Thang);
-                        SoPhieuKD.push(data[i].SoPhieuKD);
-                    }
-
-                    var options = {
-                        legend: {
-                            display: false
-                        },
-                        scales: {
-                            xAxes: [{
-                                display: true
-                            }],
-                        yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    };
-
-                    var myChart = {
-                        labels: Thang,
-                        datasets: [
-                            {
-                                label: 'Số phiếu kiểm định',
-                                backgroundColor: 'white',
-                                borderColor: 'white',
-                                hoverBackgroundColor: '#0ec2b6',
-                                hoverBorderColor: '#42f5ef',
-                                data: SoPhieuKD
-                            }
-                        ]
-                    };
-
-                    var bar = $("#kiemdinhchart"); 
-                    var barGraph = new Chart(bar, {
-                        type: 'line',
-                        data: myChart,
-                        options: options
-                    });
-
-
-                });
-        }
-  </script>
+</script>

@@ -47,13 +47,44 @@
       <label for="loginPassword">Mật khẩu</label>
       <input type="password" class="form-control" name="password" id="loginPassword" placeholder="Mật khẩu">
     </div>
-    <button type="submit" name="submit" class="btn btn-primary btn-block mt-3" id="loginbtn" value="login">Đăng nhập</button> 
+    <button type="submit" name="submit" class="btn btn-primary btn-block mt-3" id="loginbtn" value="login" onclick="return validateForm()">Đăng nhập</button> 
     <a href="index.php?register" class="form-link">Bạn chưa có tài khoản? Đăng ký</a>
     <a href="index.php?forgot" class="form-link">Quên mật khẩu</a>
   </form>
 </div>
 
 </body>
+<script>
+    // Hàm kiểm tra biểu mẫu đăng nhập trước khi gửi
+    function validateForm() {
+        var username = document.getElementById("loginUsername").value;
+        var password = document.getElementById("loginPassword").value;
+        var usernameRegex = /^[a-zA-Z0-9]*$/; // Regex cho tên người dùng
+        var passwordRegex = /^[a-zA-Z0-9!@#$%^&*()_+]*$/; // Regex cho mật khẩu
+        
+        // Kiểm tra xem tên người dùng đã được nhập vào hay không
+        if (username === "") {
+            alert("Vui lòng nhập tên người dùng");
+            return false;
+        }
+        // Kiểm tra xem tên người dùng có chứa ký tự đặc biệt không
+        if (!usernameRegex.test(username)) {
+            alert("Chỉ được phép sử dụng chữ cái và số cho tên người dùng");
+            return false;
+        }
+        // Kiểm tra xem mật khẩu đã được nhập vào hay không
+        if (password === "") {
+            alert("Vui lòng nhập mật khẩu");
+            return false;
+        }
+        // Kiểm tra xem mật khẩu có chứa ký tự đặc biệt không
+        if (!passwordRegex.test(password)) {
+            alert("Chỉ được phép sử dụng chữ cái, số và các ký tự đặc biệt cho mật khẩu");
+            return false;
+        }
+        return true;
+    }
+</script>
 
 
 

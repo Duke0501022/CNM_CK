@@ -59,7 +59,8 @@
         background-color: #70D6F5;
         padding: 10px;
         border-radius: 10px;
-        /* float: right; */
+        flex-direction: column; 
+        max-width: fit-content;
     }
 
     .message-received {
@@ -69,6 +70,8 @@
         /* Đặt margin-left để tin nhắn của chuyenvien nằm bên trái */
         padding: 10px;
         border-radius: 10px;
+        flex-direction: column; 
+        max-width: fit-content;
     }
 
     /* Input group styling */
@@ -107,7 +110,6 @@
 ?>
                         <div class="teacher-info">
                             <h5><?php echo $cv['hoTen']; ?></h5>
-                            <p><?php echo $cv['moTa']; ?></p>
                         </div>
                     </div>
                 <?php
@@ -216,3 +218,4 @@ function getMessages(sender_id, receiver_id) {
 getMessages(sender_id, receiver_id);
 });
 </script>
+

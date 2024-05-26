@@ -1,6 +1,6 @@
 <?php
-// include_once("Model/mTuVanChuyenGia.php");
-include_once('model/TuVanKH/mTuVanKH.php');
+include_once(__DIR__ . '/../model/mTuVanKH.php');
+
 
 class cTuVanPhuHuynh
 {
@@ -15,7 +15,7 @@ class cTuVanPhuHuynh
         $model = new mTuVanKH();
         return $model->select_PhuHuynh($idPhuHuynh);
     }
-    
+
     public function insert_tuvanphuhuynh($sender_id, $receiver_id, $message)
     {
         $model = new mTuVanKH();
@@ -39,7 +39,4 @@ class cTuVanPhuHuynh
         $model = new mTuVanKH();
         return $model->mark_read($sender_id, $receiver_id);
     }
-
 }
-
-?>

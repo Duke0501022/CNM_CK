@@ -69,7 +69,9 @@ $result = $info->select_info($username);
                                 echo '<p>Giới tính: ' . ($row["gioiTinh"] == 0 ? "Nam" : "Nữ") . '</p>';
                                 echo '<p>Số điện thoại: ' . $row["soDienThoai"] . '</p>';
                                 echo '<p>Email: ' . $row["email"] . '</p>';
+                                echo '<p>Username: ' . $row["username"] . '</p>';
                                 echo '</div>';
+                                
                             }
                         } else {
                             echo "0 results";
@@ -95,13 +97,18 @@ $result = $info->select_info($username);
                     </button>
                 </div>
                 <div class="modal-body">
+              
                     <form method="post">
-                        <div class="form-group">
-                            <label for="hoTen">Họ tên:</label>
-                            <input type="text" class="form-control" id="hoTen">
+                    <div class="form-group">
+                            <label for="hoTen">Username:</label>
+                            <input type='text'class='form-control' name='txtsdt' value="<?php echo $row["soDienThoai"] ?>">
                         </div>
                         <div class="form-group">
-                            <label for="gioiTinh">Giới tính:</label>
+                            <label for="hoTen">Họ tên:</label>
+                            <input type="text" class="form-control" id="hoTen" name="hoTen">
+                        </div>
+                        <div class="form-group">
+                            <label for="gioiTinh" name="gioiTinh">Giới tính:</label>
                             <select class="form-control" id="gioiTinh">
                                 <option value="0">Nam</option>
                                 <option value="1">Nữ</option>
@@ -109,15 +116,15 @@ $result = $info->select_info($username);
                         </div>
                         <div class="form-group">
                             <label for="soDienThoai">Số điện thoại:</label>
-                            <input type="text" class="form-control" id="soDienThoai">
+                            <input type="text" class="form-control" id="soDienThoai" name="soDienThoai">
                         </div>
                         <div class="form-group">
                             <label for="hinhAnh">Hình ảnh:</label>
-                            <input type="file" class="form-control" id="hinhAnh">
+                            <input type="file" class="form-control" id="hinhAnh" name="txtHinhAnh">
                         </div>
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email">
+                            <input type="email" class="form-control" id="email" name="email">
                         </div>
                     </form>
                 </div>
@@ -135,32 +142,57 @@ $result = $info->select_info($username);
   <!-- Modal -->
 
   <?php
-  include_once("Controller/cInfo.php");
-  if (isset($_SESSION['username'])) {
-    $username = $_SESSION['username'];
-  } else {
-    $username = null;
-  }
+  
+
   $info = new cInfo();
   // $result = $info->update_info2($username, $hoTen, $gioiTinh, $soDienThoai, $email);
 
   if (isset($_REQUEST["send"])) {
-    $username = $_SESSION['username'];
+    $username = $POST_['username'];
     $hoTen = $_POST['hoTen'];
     $gioiTinh = $_POST['gioiTinh'];
-    $soDienThoai = $_POST['soDienThoai'];
-    $hinhAnh = $_POST['hinhAnh']; // Nếu bạn muốn xử lý hình ảnh, hãy sử dụng $_FILES thay vì $_POST
+    $soDienThoai = $_POST['soDienThoai'];// Nếu bạn muốn xử lý hình ảnh, hãy sử dụng $_FILES thay vì $_POST
     $email = $_POST['email'];
-   
+    $hinhAnh = NULL;
 
-    // Gọi phương thức update_info2 từ mInfo
-    $info = new mInfo();
-    $success = $info->update_info2($username, $hoTen, $gioiTinh, $soDienThoai, $email);
+    if(isset($_FILES['txtHinhAnh']) && $_FILES['txtHinhAnh']['size'] > 0) {
+        // Đường dẫn lưu hình ảnh
+        $target_dir = "admin/admin/assets/uploads/images/";
+        $target_file = $target_dir . basename($_FILES["txtHinhAnh"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
-    if ($success) {
-      echo "Thay đổi thành công";
+        // Kiểm tra xem hình ảnh có thực sự là hình ảnh hay không
+        $check = getimagesize($_FILES["txtHinhAnh"]["tmp_name"]);
+        if($check !== false) {
+            $uploadOk = 1;
+        } else {
+            echo "<script>alert('File không phải là hình ảnh.');</script>";
+            $uploadOk = 0;
+        }
+
+        // Kiểm tra kích thước file (giới hạn 5MB)
+        if ($_FILES["txtHinhAnh"]["size"] > 5000000) {
+            echo "<script>alert('Xin lỗi, hình ảnh quá lớn.');</script>";
+            $uploadOk = 0;
+        }
+
+        if ($uploadOk == 0) {
+            echo "<script>alert('Xin lỗi, hình ảnh của bạn không được tải lên.');</script>";
+        } else {
+            if (move_uploaded_file($_FILES["txtHinhAnh"]["tmp_name"], $target_file)) {
+                $hinhAnh = basename($_FILES["txtHinhAnh"]["name"]);
+            } else {
+                echo "<script>alert('Xin lỗi, đã có lỗi xảy ra khi tải lên file.');</script>";
+            }
+    }
+}
+    $success = $info->update_info2($username, $hoTen, $gioiTinh, $soDienThoai, $hinhAnh,$email,$tmpimg = '', $typeimg = '', $sizeimg = '');
+
+    if ($success == 1) {
+        echo "<script>alert('Cập nhật thành công');</script>";
     } else {
-      echo "Thay đổi thất bại";
+        echo "<script>alert('Cập nhật không thành công');</script>";
     }
   }
   ?>

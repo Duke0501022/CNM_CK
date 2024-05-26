@@ -88,9 +88,9 @@ if ($_SESSION['Role'] == 1) {
         if (isset($_REQUEST["thongtin"])) {
             include("view/vProfile.php");
         } elseif (isset($_REQUEST["tuvan"])){
-            include_once("view/TuVan/dsPhuHuynh.php");
+            include_once("view/dsPhuHuynh.php");
         }elseif (isset($_REQUEST["tuvankh"])){
-            include_once("view/TuVan/vTuVan.php");
+            include_once("view/vTuVan.php");
         }else {
             include_once("view/content.php");
         }

@@ -20,7 +20,7 @@ class mTinTuc{
     public function getTinTuc($idTinTuc){
         $p = new clsketnoi();
         if($p->ketnoiDB($conn)){
-            $string = "SELECT t.*, d.tenDanhMuc FROM tintuc t LEFT JOIN danhmuctintuc d ON t.idDanhMuc = d.idDanhMuc WHERE t.idTinTuc = '$idTinTuc'";
+            $string = "SELECT t.*, d.tenDanhMuc  FROM tintuc t LEFT JOIN danhmuctintuc d ON t.idDanhMuc = d.idDanhMuc WHERE t.idTinTuc = '$idTinTuc'";
             $table = mysqli_query($conn, $string);
             $p->dongketnoi($conn);
             return $table;

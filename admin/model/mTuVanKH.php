@@ -1,6 +1,5 @@
 <?php
-// include_once("Model/Connect.php");
-include_once("model/connect.php");
+include_once(__DIR__ . '/connect.php');
 
 class mTuVanKH
 {
@@ -117,5 +116,6 @@ class mTuVanKH
             return false;
         }
     }
+
 }
 ?>

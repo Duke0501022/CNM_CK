@@ -1,5 +1,6 @@
 <?php
     include_once ("model/TaiKhoan/mtaikhoan.php");
+    
   
     class ctaikhoan{
         #Hiển thị thông tin tài khoản
@@ -104,10 +105,24 @@
     	{
         	$p = new mTaiKhoan();
         	$tt = $p -> select_tt_taikhoan($username,$Role);
-            return $tt;
+        	if ($Role == 1) { //admin
+				while($row1 = mysqli_fetch_assoc($tt)){
+        		$_SESSION['idAdmin'] = $row1['idAdmin'];
+        		$_SESSION['hoTen'] = $row1['hoTen'];
+        		}
+        	}elseif ($Role == 3){ //chuyenvien
+				while($row1 = mysqli_fetch_assoc($tt)){
+        		$_SESSION['idChuyenVien'] = $row1['idChuyenVien'];
+        		$_SESSION['hoTen'] = $row1['hoTen'];
+        		$_SESSION['avatar'] = $row1['HinhAnh'];
+        		$_SESSION['gioiTinh'] = $row1['gioiTinh'];}
+			}
+        		//thêm session diachi
+			else{
+
 			}
         	
-    	
+    	}
         ////
         public function login($username, $password)
         {
@@ -120,9 +135,10 @@
                 $_SESSION['password'] = $row['password'];
                 $_SESSION['Role'] = $row['Role'];
                 $_SESSION['login_admin'] = true;
-                
                 $tt_dn = $this -> get_tt_dangnhap($username,$row['Role']);
-                echo "<script>alert('Đăng nhập thành công')</script>";
+                if ($tt_dn){
+                    $_SESSION['idChuyenVien'] = $row['idChuyenVien'];
+                }
               
             }else {
                 echo "<script>alert('Đăng nhập thất bại')</script>";
@@ -130,5 +146,8 @@
         }
         //
 
+        
+
     }
 ?>
+
