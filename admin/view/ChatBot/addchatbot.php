@@ -77,7 +77,7 @@
                   
                   
                 </div>
-                <button type="submit" id="button" class="btn btn-primary" name="submit" style="margin-left:45%">Thêm câu hỏi</button>
+                <button type="submit" id="button" class="btn btn-primary" name="submit" style="margin-left:45%">Thêm chatbot</button>
                 <!-- <button type="submit" class="btn btn-primary" name="reset" >Reset</button> -->
                 <!-- <input type="submit" value="Thêm Doanh Nghiệp" style="text-align:center"> -->
               </form>

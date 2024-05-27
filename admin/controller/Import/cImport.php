@@ -1,5 +1,5 @@
 <?php
-include_once("Model/Import/mImport.php");
+include_once("model/Import/mImport.php");
 
 class cImport
 {
@@ -65,7 +65,7 @@ class cImport
             if ($_FILES['file']['name']) {
                 $file = $_FILES['file']['tmp_name'];
 
-                require 'vendor/autoload.php';
+                require 'assets/vendor/autoload.php';
                 $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
                 $worksheet = $spreadsheet->getActiveSheet();
 
@@ -106,7 +106,7 @@ class cImport
                 $message = -1; // No file uploaded
             }
         }
-        include_once("View/Import/vImport.php");
+        include_once("view/Import/vImport.php");
         return $message;
     }
 }

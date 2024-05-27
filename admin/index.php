@@ -109,11 +109,26 @@ if ($_SESSION['Role'] == 1) {
         } elseif (isset($_REQUEST["delcauhoi"])) {
             include("view/CauHoi/delcauhoi.php");
           
-    } elseif(isset($_REQUEST["thongtin"])) {
-        include("view/vProfile.php");
-    }else {
-        include_once("view/content.php");
-    }
+        } elseif(isset($_REQUEST["thongtin"])) {
+            include("view/vProfile.php");
+        }
+        elseif (isset($_REQUEST["qltt"])) {
+            include("view/TinTuc/quanlitintuc.php");
+        }
+        elseif (isset($_REQUEST["addtt"])) {
+            include("view/TinTuc/addtintuc.php");
+        }
+        elseif (isset($_REQUEST["updatett"])) {
+            include("view/TinTuc/updatetintuc.php");
+        }
+        elseif (isset($_REQUEST["deltintuc"])) {
+            include("view/TinTuc/deltintuc.php");
+        }elseif (isset($_REQUEST["phanhoi"])) {
+            include("view/vPhanHoi.php");
+        }
+        else {
+            include_once("view/content.php");
+        }
      }
 
 

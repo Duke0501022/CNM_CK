@@ -79,12 +79,12 @@ $importResult = $cImport->ImportController(); // Assuming ImportController retur
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Quản lý Câu Hỏi</h1>
+                    <h1>Quản lý CHATBOT</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Trang chủ</a></li>
-                        <li class="breadcrumb-item active">Quản lý Câu Hỏi</li>
+                        <li class="breadcrumb-item active">Quản lý CHATBOT</li>
                     </ol>
                 </div>
             </div>
@@ -102,7 +102,7 @@ $importResult = $cImport->ImportController(); // Assuming ImportController retur
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Danh sách câu hỏi</h3> | <a href="index.php?addcauhoi">Thêm câu hỏi</a> | <a href="index.php?import">Import câu hỏi</a>
+                            <h3 class="card-title">Danh sách chatbot</h3> | <a href="index.php?addcb">Thêm chatbot</a> | <a href="index.php?import">Import chatbot</a>
                             <div class="card-tools">
                                 <div class="input-group input-group-sm" style="width: 150px;">
                                     <input type="text" name="table_search" class="form-control float-right" placeholder="Search">

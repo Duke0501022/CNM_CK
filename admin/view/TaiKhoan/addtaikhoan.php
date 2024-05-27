@@ -102,12 +102,18 @@
         $username=$_REQUEST['username'];
         $password=$_REQUEST['password'];
         $p=new ctaikhoan();
+        if ($p->check_taikhoan($username)) {
+          echo "<script>alert('Tài khoản đã tồn tại')</script>";
+      } else {
+       
         $table=$p->add_taikhoan($username,$password,$Role);
         if ($table==1) {
             echo "<script>alert('Thêm tài khoản thành công')</script>";
         }else {
             echo "<script>alert('Thêm tài khoản không thành công')</script>";
         }
+      }
+        
     }else {
         echo 123;
     }

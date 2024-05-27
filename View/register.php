@@ -53,14 +53,14 @@
 
     <div class="register-container">
         <h2 class="header-text">Đăng ký tài khoản</h2>
-        <form action="" method="post">
+        <form action="" method="post" enctype="multipart/form-data">
           <div class="form-group">
             <select class="form-control" name="vaitro" id="slvaitro">
               <option value="">--Chọn loại người dùng--</option>
               <option value="2">Phụ Huynh</option>
            
             </select>
-  </div class="form-group">
+  </div class="form-group" >
 
             <div class="form-group">
                 <label for="loginHoTen">Họ và tên</label>

@@ -16,16 +16,15 @@
         max-width: fit-content;
     }
 
-    .message-received {
-        align-self: flex-end;
-     
-        margin-right: 10px;
-        margin-left: auto; /* Đặt lề phải tự động để căn trái */
-        background-color: #f8d7da;
-        padding: 10px;
-        border-radius: 10px;
-        max-width: fit-content;
-    }
+.message-received {
+    align-self: flex-start;
+    margin-left: 350px;
+    margin-right: auto;
+    background-color: #f8d7da;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: fit-content;
+}
 
     .chat-container {
         display: flex;

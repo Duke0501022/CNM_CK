@@ -83,7 +83,7 @@ class mImport
             if ($files['file']['name']) {
                 $file = $files['file']['tmp_name'];
 
-                require 'vendor/autoload.php';
+                require 'assets/vendor/autoload.php';
                 $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($file);
                 $worksheet = $spreadsheet->getActiveSheet();
 
