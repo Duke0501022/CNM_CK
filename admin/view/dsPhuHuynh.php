@@ -23,44 +23,64 @@ $listcv1 = $tuvan->getTestPH();
   <title>Thông tin tài khoản</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
-    /* CSS for custom button styles */
-    .btn-primary,
-    .btn-secondary {
-        background-color: #007bff; /* Blue */
-        border-color: #007bff; /* Blue */
-        color: #fff; /* White text */
-        padding: 10px 20px; /* Adjust padding as needed */
-        border-radius: 5px; /* Rounded corners */
-        font-size: 16px; /* Adjust font size as needed */
-        cursor: pointer; /* Cursor style */
-        transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Smooth transition */
+    .screening-card {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+      transition: box-shadow 0.3s ease; /* Hiệu ứng khi di chuột qua */
     }
 
-    .btn-primary:hover,
-    .btn-secondary:hover {
-        background-color: #0056b3; /* Darker blue on hover */
-        border-color: #0056b3; /* Darker blue on hover */
+    .screening-card:hover {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Hiệu ứng khi di chuột qua */
     }
 
-    .btn-primary:focus,
-    .btn-secondary:focus {
-        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.5); /* Focus glow effect */
+    .screening-card-header {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color:#9999FF;
     }
 
-    .btn-primary:active,
-    .btn-secondary:active {
-        background-color: #0056b3; /* Darker blue when clicked */
-        border-color: #0056b3; /* Darker blue when clicked */
+    .screening-card-body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    .btn-primary.disabled,
-    .btn-primary:disabled,
-    .btn-secondary.disabled,
-    .btn-secondary:disabled {
-        opacity: 0.65; /* Reduced opacity for disabled state */
-        cursor: not-allowed; /* Cursor style */
+    .screening-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 10px;
+      object-fit: cover;
+      margin-right: 20px;
     }
-</style>
+
+    .btn-screening {
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    }
+    
+
+    .btn-screening:hover {
+      background-color: #0056b3; /* Darker blue on hover */
+      border-color: #0056b3; /* Darker blue on hover */
+    }
+    .card-body .screening-card-body img {
+    width: 200px; /* Đặt kích thước chiều ngang của hình ảnh */
+    height: 100px; /* Để tự động tính toán chiều cao dựa trên tỉ lệ khung hình */
+    border-radius: 10px; /* Bo góc hình ảnh */
+}
+.hover-effect {
+    transition: transform 0.3s ease; /* Hiệu ứng khi di chuột qua */
+  }
+
+  .hover-effect:hover {
+    transform: scale(1.1); /* Hiệu ứng phóng to khi di chuột qua */
+  }
+  </style>
 </head>
 
 <body>
@@ -71,35 +91,35 @@ $listcv1 = $tuvan->getTestPH();
       <div class="col-md-8">
         <div class="card">
           <div class="card-header text-center">
-            <h2>Danh sách phụ huynh </h2>
+            <h2>Danh sách phụ huynh</h2>
           </div>
           <div class="card-body">
-          <?php
-    if (!empty($listcv1)) {
-        foreach ($listcv1 as $cv) {
-            // Kiểm tra xem các trường dữ liệu có tồn tại không
-            if (isset($cv['idPhuHuynh'], $cv['hinhAnh'], $cv['hoTen'])) {
-                // Lấy thông tin về đơn vị trắc nghiệm
-                $idPhuHuynh = $cv['idPhuHuynh'];
-                $hinhAnh = $cv['hinhAnh'];
-                $phuHuynhName = $cv['hoTen'];
-    ?>
-                <div class="screening-card">
-                    <div class="screening-card-header" style="color:Black;">Tư vấn phụ huynh <?= $phuHuynhName ?></div>
+            <?php
+            if (!empty($listcv1)) {
+              foreach ($listcv1 as $cv) {
+                // Kiểm tra xem các trường dữ liệu có tồn tại không
+                if (isset($cv['idPhuHuynh'], $cv['hinhAnh'], $cv['hoTen'])) {
+                  // Lấy thông tin về đơn vị trắc nghiệm
+                  $idPhuHuynh = $cv['idPhuHuynh'];
+                  $hinhAnh = $cv['hinhAnh'];
+                  $phuHuynhName = $cv['hoTen'];
+            ?>
+                  <div class="screening-card">
+                    <div class="screening-card-header" style="">Tư vấn phụ huynh: <?= $phuHuynhName ?></div>
                     <div class="screening-card-body">
-                        <img class="card-img-top mb-2" src='admin/assets/uploads/images/<?php echo $cv['hinhAnh']; ?>' alt="" style="width: 100px; height: 100px; border-radius: 50px;">
-                        <a href="index.php?tuvankh=<?= $idPhuHuynh ?>&idPhuHuynh=<?= $idPhuHuynh ?>" class="btn btn-primary btn-screening">Chọn</a>
+                      <img class="card-img-top mb-2 hover-effect" class="card-img-top mb-2" src='admin/assets/uploads/images/<?php echo $cv['hinhAnh']; ?>' alt="">
+                      <a href="index.php?tuvankh=<?= $idPhuHuynh ?>&idPhuHuynh=<?= $idPhuHuynh ?>" class="btn btn-primary btn-screening">Chọn</a>
                     </div>
-                </div>
-    <?php
+                  </div>
+            <?php
+                } else {
+                  echo "<p>Không tìm thấy thông tin về chuyên viên.</p>";
+                }
+              }
             } else {
-                echo "<p>Không tìm thấy thông tin về chuyên viên.</p>";
+              echo "<p>Không có list chuyen gia.</p>";
             }
-        }
-    } else {
-        echo "<p>Không có list chuyen gia.</p>";
-    }
-    ?>
+            ?>
           </div>
         </div>
       </div>
@@ -107,7 +127,6 @@ $listcv1 = $tuvan->getTestPH();
   </div>
 
   <!-- Modal sửa thông tin -->
-  
 
   <!-- Script JavaScript để gửi dữ liệu từ modal -->
   <script>
@@ -133,4 +152,7 @@ $listcv1 = $tuvan->getTestPH();
     });
   </script>
 
-  <script src="https://code.jquery.com/jquery-3.5.1
+  <script src="https://code.jquery.com/jquery-3.5.1"></script>
+</body>
+
+</html

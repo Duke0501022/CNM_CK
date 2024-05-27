@@ -1,7 +1,13 @@
 <?php 
   require_once("config/config.php");
   include_once("Controller/KhachHangDoanhNghiep/cKhachHangDoanhNghiep.php");
-  include_once("Controller/TaiKhoan/cTaikhoan.php"); ?>
+  include_once("Controller/TaiKhoan/cTaikhoan.php"); 
+  include_once("Model/Connect.php");
+
+
+// Kiểm tra kết nối
+
+  ?>
 
 <style>
     body {
@@ -119,9 +125,19 @@ if (isset($_POST['dangky'])) {
         $Role = $_POST['vaitro'];
         $username = $_POST['username'];
         $password = $_POST['password'];
-
+      
+      
         $dk = new cTaiKhoan();
         $user_dn = new cKHDN();
+        if ($user_dn->select_KHDN_email($email)) {
+            // Nếu email đã tồn tại trong CSDL, thông báo lỗi
+            echo "<script>alert('Email đã tồn tại trong hệ thống');</script>";
+            echo "<script>window.location.href = 'index.php?register.php';</script>";
+            // Kết thúc kết nối CSDL
+            $connection->close();
+            // Dừng việc xử lý tiếp theo
+            exit();
+        }
         $insert = $dk->them_taikhoan($username, $password, $Role);
         if ($insert == 1) {
             $ins_khdn = $user_dn->add_DN($email, $hinhAnh, $hoTen, $soDienThoai, $gioiTinh, $username);

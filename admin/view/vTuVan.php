@@ -1,126 +1,152 @@
 <style>
     .message {
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    max-width: 70%;
-}
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        max-width: 70%;
+    }
 
-.message-sent {
-    align-self: flex-end;
-    margin-right: auto;
-    margin-left: 10px;
-    background-color: #70D6F5;
-    padding: 10px;
-    border-radius: 10px;
-    max-width: fit-content;
-}
+    .message-sent {
+        align-self: flex-end;
+        margin-left: 10px;/* Đẩy tin nhắn gửi về bên phải */
+        margin-right: auto; /* Đặt lề trái tự động để căn phải */
+        background-color: #70D6F5;
+        padding: 10px;
+        border-radius: 10px;
+        max-width: fit-content;
+    }
 
-.message-received {
-    align-self: flex-start;
-    margin-left: 10px;
-    margin-right: auto;
-    background-color: #f8d7da;
-    padding: 10px;
-    border-radius: 10px;
-    max-width: fit-content;
-}
+    .message-received {
+        align-self: flex-end;
+     
+        margin-right: 10px;
+        margin-left: auto; /* Đặt lề phải tự động để căn trái */
+        background-color: #f8d7da;
+        padding: 10px;
+        border-radius: 10px;
+        max-width: fit-content;
+    }
 
-.chat-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Align chat to the left */
-}
-#chat-messages {
-    max-height: 400px; /* Set maximum height for chat messages container */
-    overflow-y: auto; /* Enable vertical scrolling */
-    padding: 10px;
-    border: 1px solid #ccc; /* Add border for clarity */
-    border-radius: 10px;
-}
+    .chat-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Align chat to the left */
+    }
 
-.message {
-    margin-bottom: 10px; /* Add spacing between messages */
-    padding: 10px; /* Add padding inside messages */
-}
+    #chat-messages {
+        max-height: 400px; /* Set maximum height for chat messages container */
+        overflow-y: auto; /* Enable vertical scrolling */
+        padding: 10px;
+        border: 1px solid #ccc; /* Add border for clarity */
+        border-radius: 10px;
+    }
 
-.message-sent {
-    align-self: flex-end; /* Align sent messages to the right */
-    background-color: #70D6F5; /* Set background color for sent messages */
-}
+    .card {
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-.message-received {
-    align-self: flex-start; /* Align received messages to the left */
-    background-color: #f8d7da; /* Set background color for received messages */
-}
+    .card-body {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+    }
 
+    .user-name {
+        font-weight: bold;
+    }
+
+    .profile-img {
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+    }
+
+   
+    #chat-messages {
+        max-height: 400px;
+        overflow-y: auto;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+    }
 </style>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thông tin tài khoản</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
-    /* CSS for custom button styles */
-    .btn-primary,
-    .btn-secondary {
-        background-color: #007bff; /* Blue */
-        border-color: #007bff; /* Blue */
-        color: #fff; /* White text */
-        padding: 10px 20px; /* Adjust padding as needed */
-        border-radius: 5px; /* Rounded corners */
-        font-size: 16px; /* Adjust font size as needed */
-        cursor: pointer; /* Cursor style */
-        transition: background-color 0.3s, border-color 0.3s, color 0.3s; /* Smooth transition */
+    .message {
+        padding: 10px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        max-width: 70%;
     }
 
-    .btn-primary:hover,
-    .btn-secondary:hover {
-        background-color: #0056b3; /* Darker blue on hover */
-        border-color: #0056b3; /* Darker blue on hover */
+    .message-sent {
+        align-self: flex-end;
+        margin-left: 10px;/* Đẩy tin nhắn gửi về bên phải */
+        margin-right: auto; /* Đặt lề trái tự động để căn phải */
+        background-color: #70D6F5;
+        padding: 10px;
+        border-radius: 10px;
+        max-width: fit-content;
     }
 
-    .btn-primary:focus,
-    .btn-secondary:focus {
-        box-shadow: 0 0 0 0.2rem rgba(0,123,255,.5); /* Focus glow effect */
+    .message-received {
+        align-self: flex-end;
+     
+        margin-right: 10px;
+        margin-left: auto; /* Đặt lề phải tự động để căn trái */
+        background-color: #f8d7da;
+        padding: 10px;
+        border-radius: 10px;
+        max-width: fit-content;
     }
 
-    .btn-primary:active,
-    .btn-secondary:active {
-        background-color: #0056b3; /* Darker blue when clicked */
-        border-color: #0056b3; /* Darker blue when clicked */
+    .chat-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Align chat to the left */
     }
 
-    .btn-primary.disabled,
-    .btn-primary:disabled,
-    .btn-secondary.disabled,
-    .btn-secondary:disabled {
-        opacity: 0.65; /* Reduced opacity for disabled state */
-        cursor: not-allowed; /* Cursor style */
+    #chat-messages {
+        max-height: 400px; /* Set maximum height for chat messages container */
+        overflow-y: auto; /* Enable vertical scrolling */
+        padding: 10px;
+        border: 1px solid #ccc; /* Add border for clarity */
+        border-radius: 10px;
     }
+
     .card {
-    margin-bottom: 20px; /* Add some bottom margin for spacing */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
-}
+        margin-bottom: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-.card-body {
-    padding: 20px; /* Add padding inside the card body */
-    background-color: #f8f9fa; /* Light gray background */
-    border-radius: 10px; /* Rounded corners */
-}
+    .card-body {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+    }
 
-.card-title {
-    color: #007bff; /* Blue title */
-    font-size: 24px; /* Larger font size for title */
-    margin-bottom: 0; /* Remove bottom margin for title */
-}
+    .user-name {
+        font-weight: bold;
+    }
+
+    .profile-img {
+        border-radius: 50%;
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+    }
 </style>
 </head>
-
 <body>
 <?php
 // kiểm tra $idChuyenVien có tồn tại không
@@ -132,32 +158,35 @@ if (!isset($_SESSION['idChuyenVien'])) {
     $idChuyenVien = $_SESSION['idChuyenVien'];
 }
 $idPhuHuynh = $_GET['idPhuHuynh'];
-
-
 ?>
 
 <div class="container user-info">
     <div class="row justify-content-center">
-      <div class="col-md-8">
-      <div class="card">
-    <div class="card-body text-center">
-    <?php
-    include_once("model/mTuVanKH.php");
-    $mTuVan = new mTuVanKH();
-    $listcv = $mTuVan->select_PhuHuynh($idPhuHuynh);
-    foreach ($listcv as $cv) {
-        echo "Tư vấn phụ huynh: " . $cv['hoTen'];
-    }
-    ?>
-</div>
-        </div>
-        <!-- Khung chat -->
-        <div class="">
-        <div class="chat-messages-container" style="width: 600px;"> <!-- Adjust the width as needed -->
-    <div id="chat-messages" class="border rounded p-3" style="height: 400px; overflow-y: scroll; width: 100%;"> <!-- Set width to 100% to fill its container -->
-        <!-- Chat messages content -->
-    </div>
-</div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body text-center">
+                    <?php
+                    include_once("model/mTuVanKH.php");
+                    $mTuVan = new mTuVanKH();
+                    $listcv = $mTuVan->select_PhuHuynh($idPhuHuynh);
+                    foreach ($listcv as $cv) {
+                        echo "<p class='user-name'>Tư vấn phụ huynh: " . $cv['hoTen'] . "</p>";
+                        echo "<p>Giới Tính: " . ($cv['gioiTinh'] == 0 ? 'Nam' : 'Nữ') ."</p>";
+                        if ($cv['hinhAnh'] == NULL) {
+                            echo "<p style='text-align:center'><img src='/assets/uploads/images/user.png' alt='' class='profile-img'></p>";
+                        } else {
+                            echo "<p style='text-align:center'><img src='admin/assets/uploads/images/" . $cv['hinhAnh'] . "' alt='' class='profile-img'></p>";
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
+            <!-- Khung chat -->
+            <div class="chat-container">
+                <div class="chat-messages-container" style="width: 600px;">
+                    <div id="chat-messages" class="border rounded p-3" style="height: 400px; overflow-y: scroll; width: 100%;">
+                    </div>
+                </div>
                 <div class="input-group mt-3">
                     <!-- Thêm một div để hiển thị "You:" -->
                     <div id="you-label" class="input-group-prepend" style="display: none;">
@@ -171,17 +200,12 @@ $idPhuHuynh = $_GET['idPhuHuynh'];
             </div>
         </div>
     </div>
-
 </div>
-</div>
-        </div>
-      </div>
-    </div>
-  </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
+    
     $(document).ready(function() {
         var sender_id = <?php echo json_encode($idPhuHuynh); ?>;
         var receiver_id = <?php echo json_encode($idChuyenVien); ?>;

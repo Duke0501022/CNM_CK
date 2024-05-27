@@ -90,7 +90,7 @@
             
                            
                             echo "<td>ID Chat Bot</td>";
-                            echo "<td><input type='text' class='form-control' name='idchatbot'  value='" . $row['idChatBot'] . "'></td>";
+                            echo "<td><input type='text' class='form-control' name='idchatbot'  readonly value='" . $row['idChatBot'] . "'></td>";
                             echo "<td>Câu Hỏi</td>";
                             echo "<td><input type='text' class='form-control' name='query' value='" . $row['query'] . "'></td>";
                             echo "<td>Câu Trả Lời</td>";

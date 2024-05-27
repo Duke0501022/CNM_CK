@@ -35,7 +35,7 @@ $table = $p->select_tintuc_id($idTinTuc);
                             if ($table && mysqli_num_rows($table) > 0) {
                                 $row = mysqli_fetch_assoc($table);
                             ?>
-                            <form action="" method="post" enctype="multipart/form-data">
+                            <form action="" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                                 <div class="row-md-12">
                                     <div class="row">
                                         <div class="col-md-4">
@@ -86,14 +86,15 @@ if (isset($_POST["submit"])) {
     $tieuDe = $_POST["tieuDe"];
     $noiDung = $_POST["noiDung"];
 
-    $hinhAnh = NULL;
+   
     if (isset($_FILES['hinhAnh']) && $_FILES['hinhAnh']['size'] > 0) {
         $hinhAnh = basename($_FILES["hinhAnh"]["name"]);
         $tmpimg = $_FILES["hinhAnh"]["tmp_name"];
         $typeimg = $_FILES["hinhAnh"]["type"];
         $sizeimg = $_FILES["hinhAnh"]["size"];
+    }else{
+    $hinhAnh = NULL;
     }
-
     $p = new cloaibaiviet();
     $update = $p->update_tintuc($idTinTuc, $tieuDe, $noiDung, $hinhAnh, $tmpimg, $typeimg, $sizeimg);
 
@@ -109,3 +110,31 @@ if (isset($_POST["submit"])) {
     }
 }
 ?>
+<script>
+function validateForm() {
+    var tieuDe = document.forms["updateForm"]["tieuDe"].value;
+    var noiDung = document.forms["updateForm"]["noiDung"].value;
+    var hinhAnh = document.forms["updateForm"]["hinhAnh"].value;
+
+    if (tieuDe.trim() === "" || noiDung.trim() === "") {
+        alert("Vui lòng điền đầy đủ tiêu đề và nội dung.");
+        return false;
+    }
+
+    if (hinhAnh) {
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+        if (!allowedExtensions.exec(hinhAnh)) {
+            alert('Hình ảnh phải có định dạng JPG, JPEG, PNG hoặc GIF');
+            return false;
+        }
+        var fileSize = document.getElementById("hinhAnh").files[0].size;
+        var maxSize = 5 * 1024 * 1024; // 5MB
+        if (fileSize > maxSize) {
+            alert('Kích thước hình ảnh không được vượt quá 5MB');
+            return false;
+        }
+    }
+
+    return true;
+}
+</script>

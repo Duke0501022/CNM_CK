@@ -3,54 +3,66 @@
   include_once("controller/TaiKhoan/ctaikhoan.php");
   
  ?>
- <script>
-$(document).ready(function(){
-    function kiemten(){
-        var ten = $("#tencv").val();
-        if(ten.trim() === ""){
-            $("#TenChuyenVien").html("Vui lòng nhập tên chuyên viên");
-            return false;
-        } else {
-            $("#TenChuyenVien").html("");
-            return true;
+<script>
+    $(document).ready(function(){
+        function kiemten(){
+            var ten = $("#tencv").val();
+            if(ten.trim() === ""){
+                $("#TenChuyenVien").html("Vui lòng nhập tên chuyên viên");
+                return false;
+            } else {
+                $("#TenChuyenVien").html("");
+                return true;
+            }
         }
-    }
 
-    function kiememail(){
-        var email = $("#email").val();
-        var regemail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!regemail.test(email)){
-            $("#Email").html("Email không hợp lệ");
-            return false;
-        } else {
-            $("#Email").html("");
-            return true;
+        function kiemsdt(){
+            var sdt = $("#sdt").val();
+            var regsdt = /^\+?(0[389][0-9]{8})$/;
+
+            if(regsdt.test(sdt)){
+                $("#Sodienthoai").html("");
+                return true;
+            } else {
+                $("#Sodienthoai").html("Số điện thoại phải đủ 10 chữ số và bắt đầu 03, 08, 09");
+                return false;
+            }
         }
-    }
+       
 
-   
-
-    function kiemusername(){
-        var username = $("#username").val();
-        if(username.trim() === ""){
-            $("#Username").html("Vui lòng nhập tên đăng nhập");
-            return false;
-        } else {
-            $("#Username").html("");
-            return true;
+        function kiememail(){
+            var email = $("#email").val();
+            var regemail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if(!regemail.test(email)){
+                $("#Email").html("Email không hợp lệ");
+                return false;
+            } else {
+                $("#Email").html("");
+                return true;
+            }
         }
-    }
 
-    $("#tencv").blur(kiemten);
-    $("#email").blur(kiememail);
-    
-    $("#username").blur(kiemusername);
+        function kiemusername(){
+            var username = $("#username").val();
+            if(username.trim() === ""){
+                $("#Username").html("Vui lòng nhập tên đăng nhập");
+                return false;
+            } else {
+                $("#Username").html("");
+                return true;
+            }
+        }
 
-    $("#tencv").on("click", kiemten);
-    $("#email").on("click", kiememail);
-   
-    $("#username").on("click", kiemusername);
-});
+        $("#tencv").blur(kiemten);
+        $("#sdt").blur(kiemsdt);
+        $("#email").blur(kiememail);
+        $("#username").blur(kiemusername);
+
+        $("#tencv").on("click", kiemten);
+        $("#sdt").on("click", kiemsdt);
+        $("#email").on("click", kiememail);
+        $("#username").on("click", kiemusername);
+    });
 </script>
 <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">

@@ -53,7 +53,7 @@
               </div>-->
               <!-- /.card-header -->
               <h3 style="text-align:center">Thêm Tài Khoản</h3>
-              <form action="#" method="post">
+              <form action="#" method="post" onsubmit="return validateForm()">
                 <div class="row">
                   <div class="col">
                     <td>Mã vai trò</td>
@@ -112,3 +112,44 @@
         echo 123;
     }
   ?>
+  <script>
+   function validateForm() {
+    var role = document.getElementById("role").value;
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    
+    // Kiểm tra xem các trường có rỗng không
+    if (role == "" || username == "" || password == "") {
+        alert("Vui lòng điền đầy đủ thông tin");
+        return false;
+    }
+    
+    // Kiểm tra độ dài tối thiểu/maksimum của username và password
+    if (username.length < 6 || username.length > 20) {
+        alert("Username phải từ 6 đến 20 ký tự");
+        return false;
+    }
+    
+    if (password.length < 8 || password.length > 20) {
+        alert("Password phải từ 8 đến 20 ký tự");
+        return false;
+    }
+    
+    // Kiểm tra định dạng hợp lệ của password
+    var passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if (!passwordPattern.test(password)) {
+        alert("Password phải chứa ít nhất một chữ số, một chữ cái viết thường, một chữ cái viết hoa ");
+        return false;
+    }
+    
+    // Kiểm tra mã vai trò hợp lệ
+    if (role != "2" && role != "3" && role != "4") {
+        alert("Vui lòng chọn một mã vai trò hợp lệ");
+        return false;
+    }
+    
+    // Nếu tất cả điều kiện đều đúng, trả về true để submit form
+    return true;
+}
+
+  </script>

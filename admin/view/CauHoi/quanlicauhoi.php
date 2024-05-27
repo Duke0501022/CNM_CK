@@ -1,11 +1,8 @@
 <?php 
-
 include_once("controller/CauHoi/cCauHoi.php");
 
 $p = new cCauHoi();
-
 $table = $p->select_cauhoi();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +11,44 @@ $table = $p->select_cauhoi();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quản lý Câu Hỏi</title>
     <!-- Include necessary styles and scripts here -->
+    <style>
+    /* Modal Styles */
+    .modal {
+      display: none; 
+      position: fixed; 
+      z-index: 1; 
+      padding-top: 60px; 
+      left: 0;
+      top: 0;
+      width: 100%; 
+      height: 100%; 
+      overflow: auto; 
+      background-color: rgb(0,0,0); 
+      background-color: rgba(0,0,0,0.4); 
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto; 
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%; 
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    </style>
 </head>
 <body>
   <!-- Content Wrapper. Contains page content -->
@@ -80,22 +115,22 @@ $table = $p->select_cauhoi();
                   </thead>
                   <tbody>
                     <?php
-	                    if($table){
-                            $i = 1;
-		                    if(mysqli_num_rows($table) > 0){
-			                    while($row = mysqli_fetch_assoc($table)) {
-                                    echo "<tr>";
-                                    echo "<td>" .$i++.  "</td>";
-                                    echo "<td>".$row['cauHoi']."</td>";
-                                    echo "<td>".$row['cau1']."</td>";
-                                    echo "<td>".$row['cau2']."</td>";
-                                    echo "<td>".$row['cau3']."</td>";
-                                    echo "<td>".$row['tenUnit']."</td>";
-                                    echo "<td><a href='?updatecauhoi&&idcauHoi=".$row['idcauHoi']."'><i class='fa fa-pen' aria-hidden='true'></i></a> | <a href='?deletecauhoi&&idcauHoi=".$row['idcauHoi']."'><i class='fa fa-trash' aria-hidden='true'></i></a></td>";
-                                    echo "</tr>";
-			                    }
-		                    }
-	                    }
+                      if($table){
+                          $i = 1;
+                          if(mysqli_num_rows($table) > 0){
+                            while($row = mysqli_fetch_assoc($table)) {
+                              echo "<tr>";
+                              echo "<td>" .$i++.  "</td>";
+                              echo "<td class='cauHoi'>".$row['cauHoi']."</td>";
+                              echo "<td class='cau1'>".$row['cau1']."</td>";
+                              echo "<td class='cau2'>".$row['cau2']."</td>";
+                              echo "<td class='cau3'>".$row['cau3']."</td>";
+                              echo "<td class='tenUnit'>".$row['tenUnit']."</td>";
+                              echo "<td><a href='?updatecauhoi&&idcauHoi=".$row['idcauHoi']."'><i class='fa fa-pen' aria-hidden='true'></i></a> | <a href='?deletecauhoi&&idcauHoi=".$row['idcauHoi']."'><i class='fa fa-trash' aria-hidden='true'></i></a></td>";
+                              echo "</tr>";
+                            }
+                          }
+                      }
                     ?>
                   </tbody>
                 </table>
@@ -113,49 +148,91 @@ $table = $p->select_cauhoi();
   </div>
   <!-- /.content-wrapper -->
 
+  <!-- Modal Structure -->
+  <div id="questionModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Chi tiết câu hỏi</h2>
+      <p><strong>Câu Hỏi:</strong> <span id="modalCauHoi"></span></p>
+      <p><strong>Câu 1:</strong> <span id="modalCau1"></span></p>
+      <p><strong>Câu 2:</strong> <span id="modalCau2"></span></p>
+      <p><strong>Câu 3:</strong> <span id="modalCau3"></span></p>
+      <p><strong>Unit:</strong> <span id="modalUnit"></span></p>
+    </div>
+  </div>
+
   <!-- Add this at the bottom of your page, before the closing </body> tag -->
   <script>
   document.addEventListener("DOMContentLoaded", function () {
-      const rowsPerPage = 5;
-      const table = document.querySelector("#questionsTable tbody");
-      const rows = table.querySelectorAll("tr");
-      const pageCount = Math.ceil(rows.length / rowsPerPage);
-      const paginationContainer = document.querySelector("#pagination");
+    const rowsPerPage = 5;
+    const table = document.querySelector("#questionsTable tbody");
+    const rows = table.querySelectorAll("tr");
+    const pageCount = Math.ceil(rows.length / rowsPerPage);
+    const paginationContainer = document.querySelector("#pagination");
 
-      function displayPage(page) {
-          const start = (page - 1) * rowsPerPage;
-          const end = start + rowsPerPage;
+    function displayPage(page) {
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
 
-          rows.forEach((row, index) => {
-              if (index >= start && index < end) {
-                  row.style.display = "";
-              } else {
-                  row.style.display = "none";
-              }
-          });
+        rows.forEach((row, index) => {
+            if (index >= start && index < end) {
+                row.style.display = "";
+            } else {
+                row.style.display = "none";
+            }
+        });
 
-          document.querySelectorAll(".page-link").forEach(link => {
-              link.classList.remove("active");
-          });
+        document.querySelectorAll(".page-link").forEach(link => {
+            link.classList.remove("active");
+        });
 
-          document.querySelector(`.page-link[data-page='${page}']`).classList.add("active");
-      }
+        document.querySelector(`.page-link[data-page='${page}']`).classList.add("active");
+    }
 
-      function createPagination() {
-          for (let i = 1; i <= pageCount; i++) {
-              const pageLink = document.createElement("button");
-              pageLink.classList.add("page-link");
-              pageLink.dataset.page = i;
-              pageLink.textContent = i;
-              pageLink.addEventListener("click", function () {
-                  displayPage(i);
-              });
-              paginationContainer.appendChild(pageLink);
-          }
-      }
+    function createPagination() {
+        for (let i = 1; i <= pageCount; i++) {
+            const pageLink = document.createElement("button");
+            pageLink.classList.add("page-link");
+            pageLink.dataset.page = i;
+            pageLink.textContent = i;
+            pageLink.addEventListener("click", function () {
+                displayPage(i);
+            });
+            paginationContainer.appendChild(pageLink);
+        }
+    }
 
-      createPagination();
-      displayPage(1);
+    function showModal(row) {
+        document.getElementById("modalCauHoi").textContent = row.querySelector(".cauHoi").textContent;
+        document.getElementById("modalCau1").textContent = row.querySelector(".cau1").textContent;
+        document.getElementById("modalCau2").textContent = row.querySelector(".cau2").textContent;
+        document.getElementById("modalCau3").textContent = row.querySelector(".cau3").textContent;
+        document.getElementById("modalUnit").textContent = row.querySelector(".tenUnit").textContent;
+
+        document.getElementById("questionModal").style.display = "block";
+    }
+
+    createPagination();
+    displayPage(1);
+
+    rows.forEach(row => {
+        row.addEventListener("click", function () {
+            showModal(row);
+        });
+    });
+
+    const modal = document.getElementById("questionModal");
+    const span = document.getElementsByClassName("close")[0];
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
   });
   </script>
 </body>

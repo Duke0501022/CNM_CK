@@ -18,6 +18,11 @@
 			$table = $p -> select_KHDN();
 			return $table;
 		}
+        public function select_KHDN_email($email){
+			$p = new mKhachHangDoanhNghiep();
+			$table = $p -> select_KHDN_email($email);
+			return $table;
+		}
         public function select_doanhnghiep_byid_xa($idPhuHuynh){
             $p= new mKhachHangDoanhNghiep();
             $table = $p->select_doanhnghiep_id($idPhuHuynh);

@@ -146,7 +146,7 @@
     $soDienThoai=$_REQUEST["txtsdt"];
     $email=$_REQUEST["txtemail"];
     $gioiTinh=$_REQUEST["txtgioitinh"];
-    $hinhAnh = NULL;
+    
 
     if(isset($_FILES['txtHinhAnh']) && $_FILES['txtHinhAnh']['size'] > 0) {
         // Đường dẫn lưu hình ảnh
@@ -179,7 +179,8 @@
                 echo "<script>alert('Xin lỗi, đã có lỗi xảy ra khi tải lên file.');</script>";
             }
     }
-}
+}else
+    $hinhAnh=NULL;
     // $username=$_REQUEST["txtusername"];
     // $password=$_REQUEST["password"];
     $Role=2;

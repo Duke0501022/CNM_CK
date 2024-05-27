@@ -27,6 +27,18 @@
     background-color: #0056b3;
 }
 
+    /* Bo góc cho hình ảnh */
+    .pagination-rows img {
+        border-radius: 5px;
+        transition: transform 0.3s ease;
+    }
+
+    /* Hiệu ứng hover */
+    .pagination-rows img:hover {
+        transform: scale(1.05);
+    }
+
+
 </style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -102,10 +114,10 @@
                                                 echo "<td style='text-align:center'>" . $tuoi . "</td>";
                                                 echo "<td style='text-align:center'>" . $row['email'] . "</td>";
                                                 if ($row['hinhAnh'] == NULL) {
-                                                    echo "<td style='text-align:center'><img src='admin/assets/uploads/images/user.png' alt='' height='100px' width='150px'></td>";
-                                                } else {
-                                                    echo "<td style='text-align:center'><img src='admin/assets/uploads/images/" . $row['hinhAnh'] . "' alt='' height='100px' width='150px'></td>";
-                                                }
+                                                    echo "<td style='text-align:center'><img class='rounded-image' src='/assets/uploads/images/user.png' alt='' height='100px' width='150px'></td>";
+                                                  } else {
+                                                    echo "<td style='text-align:center'><img class='rounded-image' src='admin/assets/uploads/images/" . $row['hinhAnh'] . "' alt='' height='100px' width='150px'></td>";
+                                                  }
                                                 if ($row['gioiTinh'] == 0) {
                                                     echo "<td style='text-align:center'>Nam</td>";
                                                 } else {

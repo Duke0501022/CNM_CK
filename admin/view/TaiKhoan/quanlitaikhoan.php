@@ -159,6 +159,6 @@ if (isset($_POST['search_role']) && $_POST['search_role'] != '') {
         }
     });
     function confirmDelete() {
-    return confirm("Bạn có muốn xoá tài khoản này chứ ?");
+    return confirm("Bạn có muốn xoá  này chứ ?");
 }
 </script>

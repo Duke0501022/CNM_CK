@@ -184,6 +184,7 @@ $contactModel = new ContactModel();
                     <div class="pl-3">
                         <h5>Email</h5>
                         <p>Xuanhauk16@gmail.com</p>
+                        <p>duc200251@gmail.com</p>
                     </div>
                 </div>
                 <div class="d-flex">

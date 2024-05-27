@@ -50,6 +50,7 @@
     <button type="submit" name="submit" class="btn btn-primary btn-block mt-3" id="loginbtn" value="login" onclick="return validateForm()">Đăng nhập</button> 
     <a href="index.php?register" class="form-link">Bạn chưa có tài khoản? Đăng ký</a>
     <a href="index.php?forgot" class="form-link">Quên mật khẩu</a>
+    <a href="../admin/" class="form-link">Đăng nhập trang quản lý</a>
   </form>
 </div>
 

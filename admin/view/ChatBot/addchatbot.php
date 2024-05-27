@@ -4,65 +4,7 @@
   $p =new cChatbot();
   $list_loai  = $p->select_chatbot();
  ?>
- <script>
-  $(document).ready(function(){
-            function kiemsdt(){
-                var sdt=$("#sdt").val();
-                regsdt=/^\+?(0[389][0-9]{8})$/;
-
-                if(regsdt.test(sdt))
-                {
-                    $("#Sodienthoai").html("");
-                    return true;
-                }
-                else
-                {
-                    $("#Sodienthoai").html("Số điện thoại phải đủ 10 chữ số và bắt đầu 03,08,09 ");
-                    return false;
-                }
-            }
-            $("#sdt").blur(kiemsdt);
-
-            function kiemsdtndd(){
-                var sdt=$("#sdtndd").val();
-                regsdt=/^\+?(0[389][0-9]{8})$/;
-
-                if(regsdt.test(sdt))
-                {
-                    $("#Sodienthoaindd").html("");
-                    return true;
-                }
-                else
-                {
-                    $("#Sodienthoaindd").html("Số điện thoại phải đủ 10 chữ số và bắt đầu 03,08,09");
-                    return false;
-                }
-            }
-            $("#sdtndd").blur(kiemsdtndd);
-
-            function kiemmail(){
-                var mail=$("#email").val();
-                regmail=/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
-                if(regmail.test(mail))
-                {
-                    $("#Email").html(" ");
-                    return true;
-                }
-                else
-                {
-                    $("#Email").html("Mail không đúng định dạng");
-                    return false;
-                }
-            }
-            $("#email").blur(kiemmail);
-
-            
-            
-            
-
-        })
- </script>
+ 
  <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
     <!-- Content Header (Page header) -->

@@ -91,6 +91,8 @@ if ($_SESSION['Role'] == 1) {
             include_once("view/dsPhuHuynh.php");
         }elseif (isset($_REQUEST["tuvankh"])){
             include_once("view/vTuVan.php");
+        }elseif (isset($_REQUEST["dstest"])){
+                include_once("view/vLichSu.php");    
         }else {
             include_once("view/content.php");
         }
