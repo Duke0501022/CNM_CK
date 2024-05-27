@@ -173,7 +173,7 @@ if (isset($_REQUEST['logout'])) {
                     <img src="./img/childcare.png" alt="Logo" style="width: 60px; height: auto; margin-right: 10px;">
                     <span class="text-primary " style=" font-size: 30px;">CHILDCARE</span>
                 </a>
-                <p>KidKinder là một nền tảng trực tuyến được thiết kế đặc biệt để hỗ trợ và tư vấn cho trẻ tự kỷ và gia đình của họ.
+                <p>CHILDCARE là một nền tảng trực tuyến được thiết kế đặc biệt để hỗ trợ và tư vấn cho trẻ tự kỷ và gia đình của họ.
                     Chúng tôi cung cấp các nguồn tài nguyên, thông tin và dịch vụ chuyên môn nhằm giúp trẻ tự kỷ phát triển toàn diện và tối đa
                     hóa tiềm năng của họ trong môi trường học tập và xã hội.</p>
                 <div class="d-flex justify-content-start mt-4">
@@ -197,6 +197,7 @@ if (isset($_REQUEST['logout'])) {
                     <div class="pl-3">
                         <h5 class="text-white">Email</h5>
                         <p>Xuanhauk16@gmail.com</p>
+                        <p>duc200251@gmail.com</p>
                     </div>
                 </div>
                 <div class="d-flex">

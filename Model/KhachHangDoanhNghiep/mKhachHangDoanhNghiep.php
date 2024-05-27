@@ -35,6 +35,19 @@
 				return false;
 			}
 		}
+		public function select_KHDN_email($email){
+			
+			$p = new  clsketnoi();
+			if($p -> ketnoiDB($conn)){
+				$string = "SELECT * FROM phuhuynh where email = '$email'";
+				$table = mysqli_query($conn,$string);
+				$p -> dongketnoi($conn);
+				//
+				return $table;
+			}else{
+				return false;
+			}
+		}
 		
 		#THÊM THÔNG TIN DOANH NGHIỆP 
 		public function add_KHDN($email,$hinhAnh,$hoTen,$soDienThoai,$gioiTinh, $username){

@@ -7,6 +7,26 @@ $p = new cloaibaiviet();
 $table = $p->select_tintuc();
 
 ?>
+<style>
+    /* Bo góc và hiệu ứng hover cho hình ảnh */
+    .thumbnail {
+        overflow: hidden;
+        width: 150px; /* Độ rộng của hình ảnh */
+        height: 100px; /* Độ cao của hình ảnh */
+        border-radius: 5px;
+    }
+
+    .thumbnail img {
+        width: 100%; /* Đảm bảo hình ảnh chiếm toàn bộ không gian của phần tử cha */
+        height: auto; /* Đảm bảo tỷ lệ chiều cao phù hợp */
+        transition: transform 0.3s ease;
+    }
+
+    /* Hiệu ứng hover */
+    .thumbnail img:hover {
+        transform: scale(1.05);
+    }
+</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -72,11 +92,10 @@ $table = $p->select_tintuc();
                           
                           // Button trigger modal
                           echo "<td style='text-align:center'><a href='#' data-toggle='modal' data-target='#modalContent" . $row['idTinTuc'] . "'>Xem chi tiết</a></td>";
-                                
                           if ($row['hinhAnh'] == NULL) {
-                            echo "<td style='text-align:center'><img src='/assets/uploads/images/user.png' alt='' height='100px' width='150px'></td>";
+                            echo "<td style='text-align:center'><img class='thumbnail' src='/assets/uploads/images/user.png' alt='' height='100px' width='150px'></td>";
                           } else {
-                            echo "<td style='text-align:center'><img src='admin/assets/uploads/images/" . $row['hinhAnh'] . "' alt='' height='100px' width='150px' ></td>";
+                            echo "<td style='text-align:center'><img class='thumbnail' src='admin/assets/uploads/images/" . $row['hinhAnh'] . "' alt='' height='100px' width='150px'></td>";
                           }
                           echo "<td style='text-align:center'><a href='?updatett&&idTieuDe=".$row['idTinTuc']."'><i class='fa fa-pen' aria-hidden='true'></i></a> | <a href='?deltintuc&&idTinTuc=".$row['idTinTuc']."' onclick='return confirm_delete();'><i class='fa fa-trash' aria-hidden='true'></i></a></td>";
                          

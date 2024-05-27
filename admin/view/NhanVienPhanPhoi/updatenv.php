@@ -154,7 +154,7 @@
     $gioiTinh=$_REQUEST["gioitinh"];
     $hinhAnh=$_REQUEST["hinhanh"];
     $moTa=$_REQUEST["mota"];
-    $hinhAnh = NULL;
+    
 
     if(isset($_FILES['txtHinhAnh']) && $_FILES['txtHinhAnh']['size'] > 0) {
         // Đường dẫn lưu hình ảnh
@@ -187,6 +187,8 @@
                 echo "<script>alert('Xin lỗi, đã có lỗi xảy ra khi tải lên file.');</script>";
             }
     }
+}else{
+$hinhAnh = NULL;
 }
     $Role=3;
     $p= new cNVPP();

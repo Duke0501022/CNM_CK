@@ -30,30 +30,35 @@ $result = $info->select_info($username, $role);
   <style>
     /* CSS styles */
     .user-info {
-      margin-top: 50px;
-    }
+  margin-top: 50px;
+}
 
-    .user-image {
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 50%;
-      float: left;
-      margin-right: 20px;
-    }
+.user-image-wrapper {
+  position: relative;
+}
 
-    .user-details {
-      overflow: hidden;
-    }
+.user-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
 
-    .user-details h5 {
-      margin-top: 0;
-    }
+.user-image:hover {
+  transform: scale(1.1); /* Kích thước hình ảnh phóng to khi hover */
+}
 
-    .modal-body input,
-    .modal-body select {
-      margin-bottom: 10px;
-    }
+.user-details {
+  overflow: hidden;
+}
+
+.user-details h5 {
+  margin-top: 0;
+}
+.card-header h2 {
+    color: #6699FF; /* Màu chữ xanh */
+  }
   </style>
 </head>
 
@@ -61,81 +66,67 @@ $result = $info->select_info($username, $role);
 
   <!-- Nội dung hiển thị thông tin người dùng -->
   <div class="container user-info">
-    <div class="row justify-content-center">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header text-center">
-            <h2>Thông tin tài khoản</h2>
-          </div>
-          <div class="card-body">
-            <?php
-            if (mysqli_num_rows($result) > 0) {
-              while ($row = mysqli_fetch_assoc($result)) {
-                echo '<img src="admin/assets/uploads/images/' . $row["hinhAnh"] . '" alt="User Image" class="user-image mb-3">';
-                echo '<div class="user-details">';
-                echo '<h5>Họ tên: ' . $row["hoTen"] . '</h5>';
-                echo '<p>Giới tính: ' . ($row["gioiTinh"] == 0 ? "Nam" : "Nữ") . '</p>';
-                echo '<p>Số điện thoại: ' . $row["soDienThoai"] . '</p>';
-                echo '<p>Email: ' . $row["email"] . '</p>';
-                echo '</div>';
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header text-center">
+          <h2>Thông tin tài khoản</h2>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-4">
+              <?php
+              if (mysqli_num_rows($result) > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                  echo '<div class="user-image-wrapper">';
+                  echo '<img src="admin/assets/uploads/images/' . $row["hinhAnh"] . '" alt="User Image" class="user-image">';
+                  echo '</div>';
+                }
               }
-            } else {
-              echo "0 results";
-            }
-            ?>
+              ?>
+            </div>
+            <div class="col-md-8">
+              <div class="user-details">
+                <?php
+                if (mysqli_num_rows($result) > 0) {
+                  mysqli_data_seek($result, 0); // Đưa con trỏ dữ liệu về vị trí đầu tiên
+                  while ($row = mysqli_fetch_assoc($result)) {
+                    echo '<h5 class="mb-3">Họ tên: ' . $row["hoTen"] . '</h5>';
+                    echo '<p>Giới tính: ' . ($row["gioiTinh"] == 0 ? "Nam" : "Nữ") . '</p>';
+                    echo '<p>Số điện thoại: ' . $row["soDienThoai"] . '</p>';
+                    echo '<p>Email: ' . $row["email"] . '</p>';
+                    echo '<p>Chức vụ: ';
+                                  switch ($row["Role"]) {
+                                      case '1':
+                                          echo 'Admin';
+                                          break;
+                                      case '3':
+                                          echo 'Chuyên viên';
+                                          break;
+                                      case '4':
+                                          echo 'Quản trị viên';
+                                          break;
+                                      default:
+                                          echo 'Unknown';
+                                          break;
+                                  }
+                                  echo '</p>';
+                  }
+                } else {
+                  echo "0 results";
+                }
+                ?>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
   <!-- Modal sửa thông tin -->
-  <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editModalLabel">Sửa thông tin</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <!-- Form nhập liệu -->
-          <form id="editForm">
-            <div class="form-group">
-              <label for="hoTen">Họ tên:</label>
-              <input type="text" class="form-control" id="hoTen">
-            </div>
-            <div class="form-group">
-              <label for="gioiTinh">Giới tính:</label>
-              <select class="form-control" id="gioiTinh">
-                <option value="0">Nam</option>
-                <option value="1">Nữ</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="soDienThoai">Số điện thoại:</label>
-              <input type="text" class="form-control" id="soDienThoai">
-            </div>
-            <div class="form-group">
-              <label for="hinhAnh">Hình ảnh:</label>
-              <input type="file" class="form-control" id="hinhAnh">
-            </div>
-            <div class="form-group">
-              <label for="email">Email:</label>
-              <input type="email" class="form-control" id="email">
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <!-- Nút đóng modal -->
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-          <!-- Nút gửi dữ liệu -->
-          <button type="button" class="btn btn-primary" id="sendBtn">Lưu thay đổi</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  
 
   <!-- Script JavaScript để gửi dữ liệu từ modal -->
   <script>

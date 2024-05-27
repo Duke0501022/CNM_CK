@@ -4,65 +4,7 @@
   $p =new cCauHoi();
   $list_loai  = $p->select_unit();
  ?>
- <script>
-  $(document).ready(function(){
-            function kiemsdt(){
-                var sdt=$("#sdt").val();
-                regsdt=/^\+?(0[389][0-9]{8})$/;
-
-                if(regsdt.test(sdt))
-                {
-                    $("#Sodienthoai").html("");
-                    return true;
-                }
-                else
-                {
-                    $("#Sodienthoai").html("Số điện thoại phải đủ 10 chữ số và bắt đầu 03,08,09 ");
-                    return false;
-                }
-            }
-            $("#sdt").blur(kiemsdt);
-
-            function kiemsdtndd(){
-                var sdt=$("#sdtndd").val();
-                regsdt=/^\+?(0[389][0-9]{8})$/;
-
-                if(regsdt.test(sdt))
-                {
-                    $("#Sodienthoaindd").html("");
-                    return true;
-                }
-                else
-                {
-                    $("#Sodienthoaindd").html("Số điện thoại phải đủ 10 chữ số và bắt đầu 03,08,09");
-                    return false;
-                }
-            }
-            $("#sdtndd").blur(kiemsdtndd);
-
-            function kiemmail(){
-                var mail=$("#email").val();
-                regmail=/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
-                if(regmail.test(mail))
-                {
-                    $("#Email").html(" ");
-                    return true;
-                }
-                else
-                {
-                    $("#Email").html("Mail không đúng định dạng");
-                    return false;
-                }
-            }
-            $("#email").blur(kiemmail);
-
-            
-            
-            
-
-        })
- </script>
+ 
  <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -118,7 +60,7 @@
               </div>-->
               <!-- /.card-header -->
               <h3 style="text-align:center">Thêm Câu Hỏi</h3>
-              <form action="#" method='post'>
+              <form action="#" method='post' onsubmit="return validateForm()">
                 <div class="row">
                   <div class="col-md-4">
                     <td>Câu Hỏi </td>
@@ -195,3 +137,32 @@
       
      
   ?>
+  <script>
+    function validateForm() {
+    var cauHoi = document.getElementById("cauhoi").value;
+    var cau1 = document.getElementById("cau1").value;
+    var cau2 = document.getElementById("cau2").value;
+    var cau3 = document.getElementById("cau3").value;
+    var unit = document.getElementById("option").value;
+
+    // Kiểm tra xem các trường có rỗng không
+    if (cauHoi.trim() === '' || cau1.trim() === '' || cau2.trim() === '' || cau3.trim() === '' || unit === '0') {
+        alert("Vui lòng điền đầy đủ thông tin câu hỏi và chọn unit");
+        return false;
+    }
+
+    // Kiểm tra độ dài của câu hỏi
+    if (cauHoi.length < 5 || cauHoi.length > 255) {
+        alert("Câu hỏi phải có từ 5 đến 255 ký tự");
+        return false;
+    }
+
+    // Kiểm tra độ dài của các câu trả lời
+    if (cau1.length < 1 || cau1.length > 255 || cau2.length < 1 || cau2.length > 255 || cau3.length < 1 || cau3.length > 255) {
+        alert("Mỗi câu trả lời phải có từ 1 đến 255 ký tự");
+        return false;
+    }
+
+    return true;
+}
+  </script>

@@ -35,7 +35,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 style="text-align:center">Cập nhật thông tin tài khoản</h3>
-                            <form action="#" method="post">
+                            <form action="#" method="post" id="testForm">
                                 <div class="row">
                                     <div class="col">
                                         <?php
@@ -94,4 +94,20 @@
             x.type = "password";
         }
     }
+    function handleSubmit(event) {
+    event.preventDefault(); // Prevent form submission
+    var form = document.getElementById('testForm');
+    var username = form.elements['username'].value;
+    var password = form.elements['password'].value;
+    
+    // Perform validation here
+    if(username === '' || password === '') {
+        alert('Username and password cannot be empty');
+    } else {
+        // Make an AJAX request or perform any other action
+        // For simplicity, just logging the values here
+        console.log('Username:', username);
+        console.log('Password:', password);
+    }
+}
 </script>

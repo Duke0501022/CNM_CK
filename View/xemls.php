@@ -41,7 +41,7 @@ $res = $xemls->get_lichsu($username);
                 <th>ID phụ huynh</th>
                 <th>Điểm số</th>
                 <th>Unit</th>
-                <th>Thời gian</th>
+             
             </tr>
         </thead>
         <tbody>
@@ -55,7 +55,7 @@ $res = $xemls->get_lichsu($username);
                     echo "<td>" . $row['idPhuHuynh'] . "</td>";
                     echo "<td>" . $row['diemSo'] . "</td>";
                     echo "<td>" . $row['tenUnit'] . "</td>";
-                    echo "<td id='thoiGian'></td>";
+                  
                     echo "</tr>";
                 }
             } else {
@@ -71,8 +71,3 @@ $res = $xemls->get_lichsu($username);
 </body>
 
 </html>
-
-<script>
-    var d = new Date();
-    document.getElementById("thoiGian").innerHTML = d;
-</script>

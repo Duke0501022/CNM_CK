@@ -60,7 +60,7 @@
               </div>-->
               <!-- /.card-header -->
               <h3 style="text-align:center">Cập nhật câu hỏi</h3>
-              <form action="#" method="post">
+              <form action="#" method="post" onsubmit="return validateForm()">
                 <div class="row">
                   <div class="col">
                     <?php
@@ -72,7 +72,7 @@
                             echo "<td>ID Cau Hoi:</td>";
                             echo "<td>";
                         
-                          echo "<td><input type='text' class='form-control' name='idcauhoi' value='" . $row['idcauHoi'] . "'></td>";
+                          echo "<td><input type='text' class='form-control' name='idcauhoi' readonly value='" . $row['idcauHoi'] . "'></td>";
                           echo "</td>";
                           echo "</tr>";
 
@@ -160,4 +160,61 @@
     }
   }
 ?>
-  
+
+    <script>
+  function validateForm() {
+    // Lấy giá trị từ các trường input
+    var idcauHoi = document.forms["updateForm"]["idcauHoi"].value.trim();
+    var cauHoi = document.forms["updateForm"]["cauhoi"].value.trim();
+    var cau1 = document.forms["updateForm"]["cau1"].value.trim();
+    var cau2 = document.forms["updateForm"]["cau2"].value.trim();
+    var cau3 = document.forms["updateForm"]["cau3"].value.trim();
+    var unit = document.forms["updateForm"]["unit"].value;
+
+    // Kiểm tra xem các trường có rỗng không
+    if (idcauHoi == "") {
+      alert("Vui lòng nhập ID câu hỏi");
+      return false; // Ngăn form được submit
+    }
+    if (cauHoi == "") {
+      alert("Vui lòng nhập câu hỏi");
+      return false;
+    }
+    if (cau1 == "") {
+      alert("Vui lòng nhập câu 1");
+      return false;
+    }
+    if (cau2 == "") {
+      alert("Vui lòng nhập câu 2");
+      return false;
+    }
+    if (cau3 == "") {
+      alert("Vui lòng nhập câu 3");
+      return false;
+    }
+    if (unit == "0") {
+      alert("Vui lòng chọn unit");
+      return false;
+    }
+
+    // Kiểm tra xem ID câu hỏi có phải là số không
+    if (isNaN(idcauHoi)) {
+      alert("ID câu hỏi phải là số");
+      return false;
+    }
+
+    // Kiểm tra độ dài của câu hỏi, các câu và unit
+    if (cauHoi.length > 500) {
+      alert("Câu hỏi không được dài quá 500 ký tự");
+      return false;
+    }
+    if (cau1.length > 255 || cau2.length > 255 || cau3.length > 255) {
+      alert("Mỗi câu trả lời  không được dài quá 255 ký tự");
+      return false;
+    }
+
+    // Nếu tất cả đều hợp lệ, cho phép submit form
+    return true;
+  }
+</script>
+

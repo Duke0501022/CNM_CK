@@ -7,7 +7,7 @@
             <p class="text-white mb-4">KidKinder là một nền tảng trực tuyến được thiết kế đặc biệt để hỗ trợ và tư vấn cho trẻ tự kỷ và gia đình của họ. 
                 Chúng tôi cung cấp các nguồn tài nguyên, thông tin và dịch vụ chuyên môn nhằm giúp trẻ tự kỷ phát triển toàn diện 
                 và tối đa hóa tiềm năng của họ trong môi trường học tập và xã hội. </p>
-            <a href="" class="btn btn-secondary mt-1 py-3 px-5">Learn More</a>
+          
         </div>
         <div class="col-lg-6 text-center text-lg-right">
             <img class="img-fluid mt-5" src="img/header.png" alt="">

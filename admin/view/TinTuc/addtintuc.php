@@ -4,65 +4,7 @@
   $p =new cloaibaiviet();
   $list_loai  = $p->select_tintuc();
  ?>
- <script>
-  $(document).ready(function(){
-            function kiemsdt(){
-                var sdt=$("#sdt").val();
-                regsdt=/^\+?(0[389][0-9]{8})$/;
-
-                if(regsdt.test(sdt))
-                {
-                    $("#Sodienthoai").html("");
-                    return true;
-                }
-                else
-                {
-                    $("#Sodienthoai").html("Số điện thoại phải đủ 10 chữ số và bắt đầu 03,08,09 ");
-                    return false;
-                }
-            }
-            $("#sdt").blur(kiemsdt);
-
-            function kiemsdtndd(){
-                var sdt=$("#sdtndd").val();
-                regsdt=/^\+?(0[389][0-9]{8})$/;
-
-                if(regsdt.test(sdt))
-                {
-                    $("#Sodienthoaindd").html("");
-                    return true;
-                }
-                else
-                {
-                    $("#Sodienthoaindd").html("Số điện thoại phải đủ 10 chữ số và bắt đầu 03,08,09");
-                    return false;
-                }
-            }
-            $("#sdtndd").blur(kiemsdtndd);
-
-            function kiemmail(){
-                var mail=$("#email").val();
-                regmail=/^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
-                if(regmail.test(mail))
-                {
-                    $("#Email").html(" ");
-                    return true;
-                }
-                else
-                {
-                    $("#Email").html("Mail không đúng định dạng");
-                    return false;
-                }
-            }
-            $("#email").blur(kiemmail);
-
-            
-            
-            
-
-        })
- </script>
+ 
  <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -118,7 +60,7 @@
               </div>-->
               <!-- /.card-header -->
               <h3 style="text-align:center">Thêm Bài Viết</h3>
-              <form action="#" method='post'>
+              <form action="#" method='post' onsubmit="return validateForm()">
                 <div class="row">
                   <div class="col-md-4">
                     <td>Tiêu Đề</td>
@@ -179,3 +121,23 @@
       
      
   ?>
+  <script>function validateForm() {
+    var tieuDe = document.getElementById("cauhoi").value;
+    var noiDung = document.getElementById("cau1").value;
+    var hinhAnh = document.getElementById("hinhAnh").value;
+
+    // Kiểm tra xem các trường có rỗng không
+    if (tieuDe.trim() === '' || noiDung.trim() === '' || hinhAnh.trim() === '') {
+        alert("Vui lòng điền đầy đủ thông tin bài viết");
+        return false;
+    }
+
+    // Kiểm tra định dạng hình ảnh
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+    if (!allowedExtensions.exec(hinhAnh)) {
+        alert('Chỉ cho phép tải lên các tệp JPG, JPEG, PNG và GIF');
+        return false;
+    }
+
+    return true;
+}</script>
