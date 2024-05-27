@@ -126,32 +126,34 @@ if (isset($_POST['dangky'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
       
-      
         $dk = new cTaiKhoan();
         $user_dn = new cKHDN();
         if ($user_dn->select_KHDN_email($email)) {
             // Nếu email đã tồn tại trong CSDL, thông báo lỗi
             echo "<script>alert('Email đã tồn tại trong hệ thống');</script>";
+            
             echo "<script>window.location.href = 'index.php?register.php';</script>";
-            // Kết thúc kết nối CSDL
-            $connection->close();
             // Dừng việc xử lý tiếp theo
+            exit();
+        }
+        if ($user_dn->select_KHDN_username($username)) {
+            // If the username already exists in the database, show an error message
+            echo "<script>alert('Tên đăng nhập đã tồn tại trong hệ thống');</script>";
+            echo "<script>window.location.href = 'index.php?register.php';</script>";
+            // Stop further processing
             exit();
         }
         $insert = $dk->them_taikhoan($username, $password, $Role);
         if ($insert == 1) {
             $ins_khdn = $user_dn->add_DN($email, $hinhAnh, $hoTen, $soDienThoai, $gioiTinh, $username);
             if ($ins_khdn == 1) {
-                $mail->send_mail($hoTen,$email,$username,$password,$hinhAnh,$Role,$gioiTinh,$soDienThoai);
+                $mail->send_mail($hoTen, $email, $username, $password, $hinhAnh, $Role, $gioiTinh, $soDienThoai);
                 echo "<script>alert('Đăng ký thành công , bạn có thể coi email về thông tin tài khoản');</script>";
                 echo "<script>window.location.href = 'index.php?login';</script>";
-
-
             } else {
                 echo "<script>alert('Đăng ký thất bại');</script>";
                 echo "<script>window.location.href = 'index.php?register.php';</script>";
             }
-
         } else {
             echo "<script>alert('Đăng ký thất bại');</script>";
             echo "<script>window.location.href = 'index.php?register.php';</script>";

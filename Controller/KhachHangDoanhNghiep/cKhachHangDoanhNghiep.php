@@ -29,6 +29,14 @@
             //  var_dump($table);
             return $table;
         }
+
+        public function select_KHDN_username($username){
+            $p= new mKhachHangDoanhNghiep();
+            $table = $p->select_KHDN_username($username);
+            //  var_dump($table);
+            return $table;
+        }
+        
         public function select_doanhnghiep_email($email){
             $p= new mKhachHangDoanhNghiep();
             $table = $p->select_doanhnghiep_email_id($email);

@@ -35,16 +35,37 @@
 				return false;
 			}
 		}
-		public function select_KHDN_email($email){
-			
-			$p = new  clsketnoi();
-			if($p -> ketnoiDB($conn)){
-				$string = "SELECT * FROM phuhuynh where email = '$email'";
-				$table = mysqli_query($conn,$string);
-				$p -> dongketnoi($conn);
-				//
-				return $table;
-			}else{
+		public function select_KHDN_email($email) {
+			$p = new clsketnoi();
+			if ($p->ketnoiDB($conn)) {
+				$string = "SELECT * FROM phuhuynh WHERE email = '$email'";
+				$table = mysqli_query($conn, $string);
+				$p->dongketnoi($conn);
+		
+				// Check if any rows were returned
+				if (mysqli_num_rows($table) > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
+		public function select_KHDN_username($username) {
+			$p = new clsketnoi();
+			if ($p->ketnoiDB($conn)) {
+				$string = "SELECT * FROM phuhuynh WHERE username = '$username'";
+				$table = mysqli_query($conn, $string);
+				$p->dongketnoi($conn);
+		
+				// Check if any rows were returned
+				if (mysqli_num_rows($table) > 0) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
 				return false;
 			}
 		}
