@@ -18,7 +18,7 @@
 
 .message-received {
     align-self: flex-start;
-    margin-left: 10px;
+    margin-left: 350px;
     margin-right: auto;
     background-color: #f8d7da;
     padding: 10px;

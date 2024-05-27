@@ -2,7 +2,7 @@
 
 	class ketnoi{
 		public function moketnoi(&$conn){
-			$conn = mysqli_connect('localhost','root','','kinderdb');
+			$conn = mysqli_connect('localhost','root','','kinderdb1');
 			//set charset utf8
 			mysqli_set_charset($conn,'utf8');
 			// Check connection

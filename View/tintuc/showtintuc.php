@@ -87,7 +87,7 @@ if (isset($_GET['idTinTuc'])) {
             <p><?php echo nl2br(htmlspecialchars($tinTuc['noiDung'])); ?></p>
            
             <p>Danh mục: <?php echo htmlspecialchars($tinTuc['tenDanhMuc']); ?></p>
-            <a href="http://localhost/CNM_Project/index.php?tintuc" class="back-link">Trở về trang chủ</a>
+            <a href="http://localhost/CNM_CK/index.php?tintuc" class="back-link">Trở về trang chủ</a>
         </div>
     </div>
 </body>
