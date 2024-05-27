@@ -14,18 +14,27 @@ class mViewLichSu
             if ($result && mysqli_num_rows($result) > 0) {
                 $row = mysqli_fetch_assoc($result);
                 $idPhuHuynh = $row['idPhuHuynh'];
-                $string = "SELECT * FROM unit u 
-                            JOIN cauhoi c ON u.idUnit = c.idUnit 
-                            JOIN ketqua k ON c.idUnit = k.idUnit 
-                            JOIN phuhuynh p ON k.idPhuHuynh = p.idPhuHuynh 
-                            JOIN taikhoan1 t ON p.username = t.username 
-                            WHERE p.idPhuHuynh = $idPhuHuynh";
+                // $string = "SELECT DISTINCT u.*, c.*, k.*, p.*, t.*
+                // FROM unit u 
+                // JOIN cauhoi c ON u.idUnit = c.idUnit 
+                // JOIN ketqua k ON c.idUnit = k.idUnit 
+                // JOIN phuhuynh p ON k.idPhuHuynh = p.idPhuHuynh 
+                // JOIN taikhoan1 t ON p.username = t.username
+                //             WHERE p.idPhuHuynh = $idPhuHuynh";
+                $string = "SELECT DISTINCT k.idKetQua, k.noiDungKetQua, p.username, k.idPhuHuynh, k.diemSo, u.tenUnit 
+                FROM unit u 
+                JOIN cauhoi c ON u.idUnit = c.idUnit 
+                JOIN ketqua k ON c.idUnit = k.idUnit 
+                JOIN phuhuynh p ON k.idPhuHuynh = p.idPhuHuynh 
+                JOIN taikhoan1 t ON p.username = t.username
+                WHERE p.idPhuHuynh = $idPhuHuynh";
             } else {
-                $string = "SELECT * FROM unit u 
-                            JOIN cauhoi c ON u.idUnit = c.idUnit 
-                            JOIN ketqua k ON c.idUnit = k.idUnit 
-                            JOIN phuhuynh p ON k.idPhuHuynh = p.idPhuHuynh 
-                            JOIN taikhoan1 t ON p.username = t.username";
+                // $string = "SELECT DISTINCT k.idKetQua, k.noiDungKetQua, p.username, k.idPhuHuynh, k.diemSo, u.tenUnit 
+                // FROM unit u 
+                // JOIN cauhoi c ON u.idUnit = c.idUnit 
+                // JOIN ketqua k ON c.idUnit = k.idUnit 
+                // JOIN phuhuynh p ON k.idPhuHuynh = p.idPhuHuynh 
+                // JOIN taikhoan1 t ON p.username = t.username;";
             }        
             $table = mysqli_query($conn, $string);
             $p->dongketnoi($conn);

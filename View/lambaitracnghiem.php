@@ -4,18 +4,23 @@
         border-collapse: collapse;
         margin: 20px 0;
     }
-    th, td {
+
+    th,
+    td {
         border: 1px solid #ddd;
         padding: 8px;
         text-align: left;
     }
+
     th {
         background-color: #318EA5;
         color: white;
     }
+
     tr:nth-child(even) {
         background-color: #f2f2f2;
     }
+
     .btn-primary {
         background-color: #318EA5;
         border: none;
@@ -64,21 +69,21 @@ if (isset($_GET['idUnit'])) {
             }
 
             if ($totalScore < 50) {
-                $result = "Không đạt";
+                $result = "Con đang có những dấu hiệu phát triển không tốt, khả năng phát triển chậm nhiều so với trẻ bt, hãy cho con đến trung tâm uy tín thăm khám";
             } elseif ($totalScore >= 50 && $totalScore < 70) {
-                $result = "Khá";
+                $result = "Con có dấu hiệu phát triển chậm hơn so với sự phát triển của trẻ bình thường, hãy lưu ý những điểm con chưa đạt và hỗ trợ con.";
             } else {
-                $result = "Giỏi";
+                $result = "Mức độ phát triển của con bình thường";
             }
 
             // Hiển thị điểm số và kết quả
-            echo "<p>Tổng điểm: $totalScore</p>";
-            echo "<p>Kết quả: $result</p>";
+            // echo "<p>Tổng điểm: $totalScore</p>";
+            // echo "<p>Kết quả: $result</p>";
         }
 ?>
         <div style="overflow: auto; max-height: 500px; text-align: center;">
             <h1>Trắc nghiệm Unit <?= $idUnit ?></h1>
-<form action="index.php?lambaitracnghiem=<?= $idUnit ?>&idUnit=<?= $idUnit ?>" method="post">
+            <form action="index.php?lambaitracnghiem=<?= $idUnit ?>&idUnit=<?= $idUnit ?>" method="post">
                 <table border="1" cellpadding="10" cellspacing="0" style="margin: 0 auto;">
                     <thead>
                         <tr>
@@ -87,18 +92,19 @@ if (isset($_GET['idUnit'])) {
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($questions as $key => $question): ?>
-                        <tr>
-                            <td>Câu <?= ($key + 1) ?>: <?= $question['cauHoi'] ?></td>
-                            <td>
-                                <label><input type="radio" name="answer[<?= $key ?>]" value="a"> <?= $question['cau1'] ?></label><br>
-                                <label><input type="radio" name="answer[<?= $key ?>]" value="b"> <?= $question['cau2'] ?></label><br>
-                                <label><input type="radio" name="answer[<?= $key ?>]" value="c"> <?= $question['cau3'] ?></label>
-                                <input type="hidden" name="idcauHoi[]" value="<?= $question['idcauHoi'] ?>">
-                                <input type="hidden" name="idPhuHuynh" value="<?= $_SESSION['idPhuHuynh'] ?>">
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
+                        <?php foreach ($questions as $key => $question) : ?>
+                            <tr>
+                                <td>Câu <?= ($key + 1) ?>: <?= $question['cauHoi'] ?></td>
+                                <td>
+                                    <label><input type="radio" name="answer[<?= $key ?>]" value="a"> <?= $question['cau1'] ?></label><br>
+                                    <label><input type="radio" name="answer[<?= $key ?>]" value="b"> <?= $question['cau2'] ?></label><br>
+                                    <label><input type="radio" name="answer[<?= $key ?>]" value="c"> <?= $question['cau3'] ?></label>
+                                    <input type="hidden" name="idcauHoi[]" value="<?= $question['idcauHoi'] ?>">
+                                    <input type="hidden" name="idPhuHuynh" value="<?= $_SESSION['idPhuHuynh'] ?>">
+                                </td>
+                            </tr>
+                        <?php endforeach;
+                        ?>
                     </tbody>
                 </table>
                 <br>
@@ -121,7 +127,7 @@ if (isset($_REQUEST['nopbai'])) {
     $username = $_SESSION['username'];
     $kq = $p->get_saveResult($result, $_SESSION['idPhuHuynh'], $idUnit, $totalScore, $username);
     if ($kq > 0) {
-        echo "<script>alert('Kết quả bài trắc nghiệm đã được lưu thành công')</script>";
+        echo "<script>alert('Kết quả bài trắc nghiệm đã được lưu vào lịch sử bài làm.')</script>";
     } else {
         echo "<script>alert('Đã xảy ra lỗi khi lưu kết quả bài trắc nghiệm.')</script>";
     }
