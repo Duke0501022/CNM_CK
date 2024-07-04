@@ -10,43 +10,53 @@
   ?>
 
 <style>
-    body {
-        font-family: 'Arial', sans-serif;
-        background: url(../kindergarten-website-template/img/login.jpg);
-    }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url(../kindergarten-website-template/img/login.jpg);
+        }
 
-    .register-container {
-        max-width: 400px;
-        margin: 100px auto;
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 0px 10px 0px #000000;
-    }
+        .register-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px #000000;
+        }
 
-    .header-text {
-        margin-bottom: 30px;
-        color: #333333;
-        text-align: center;
-    }
+        .header-text {
+            margin-bottom: 30px;
+            color: #333333;
+            text-align: center;
+        }
 
-    .custom-btn {
-        background-color: #f8b400;
-        color: white;
-        border: none;
-    }
+        .custom-btn {
+            background-color: 	
+            #00c0f8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-block;
+        }
 
-    .custom-btn:hover {
-        background-color: #e5a300;
-    }
+        .custom-btn:hover {
+            background-color: #e5a300;
+        }
 
-    .form-link {
-        color: #333333;
-        text-align: center;
-        display: block;
-        margin-top: 15px;
-    }
-</style>
+        .form-link {
+            color: #333333;
+            text-align: center;
+            display: block;
+            margin-top: 15px;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -99,9 +109,9 @@
                 <input type="password" class="form-control" id="confirmPassword" placeholder=" Nhập lại mật khẩu">
             </div>
             
-            <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block" name="dangky" onclick="return validateForm()">Đăng Ký</button>
-          </div>
+            <div class="button-container">
+                <button type="submit" class="btn btn-primary custom-btn" name="dangky" onclick="return validateForm()">Đăng Ký</button>
+            </div>
             <a href="index.php?login" class="form-link">Bạn đã có tài khoản? Đăng nhập</a>
         </form>
     </div>
@@ -180,6 +190,9 @@ if (isset($_POST['dangky'])) {
         // Biểu thức chính quy cho email
         var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+        // Biểu thức chính quy cho mật khẩu
+        var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
         // Kiểm tra các trường nhập liệu
         if (vaitro.trim() == "") {
             alert("Vui lòng chọn vai trò");
@@ -223,6 +236,11 @@ if (isset($_POST['dangky'])) {
             alert("Vui lòng nhập mật khẩu");
             return false;
         }
+        // Kiểm tra điều kiện mật khẩu
+        if (!passwordRegex.test(password)) {
+            alert("Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt");
+            return false;
+        }
         if (confirmPassword.trim() == "") {
             alert("Vui lòng nhập lại mật khẩu");
             return false;
@@ -231,8 +249,7 @@ if (isset($_POST['dangky'])) {
             alert("Mật khẩu và nhập lại mật khẩu không khớp");
             return false;
         }
-      
+
         return true;
     }
-
 </script>

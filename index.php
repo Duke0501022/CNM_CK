@@ -54,7 +54,62 @@ if (isset($_REQUEST['logout'])) {
     <!-- Customized Bootstrap Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
 </head>
+<style>
+       #chatbot {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 300px;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
 
+#chatbot-header {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#chatbot-body {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-top: none;
+}
+
+#chatbot-messages {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+#chatbot-input {
+    width: 75%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-top: none;
+}
+
+#chatbot-body button {
+    width: 25%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+}
+
+.user-message {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.bot-message {
+    text-align: left;
+    margin-bottom: 10px;
+}
+    </style>
 <body>
     <!-- Navbar Start -->
     <div class="container-fluid bg-light position-relative shadow">
@@ -142,6 +197,8 @@ if (isset($_REQUEST['logout'])) {
         include('View/lienhe.php');
     } else if (isset($_REQUEST['login'])) {
         include('View/login.php');
+    }else if (isset($_REQUEST['googlelogin'])) {
+            include('View/logingoogle.php');
     } else if (isset($_REQUEST['register'])) {
         include('View/register.php');
     } else if (isset($_REQUEST['xemlichsu'])) {
@@ -166,6 +223,19 @@ if (isset($_REQUEST['logout'])) {
 
     ?>
     <!-- Footer Start -->
+    <div id="chatbot">
+    <div id="chatbot-header" onclick="toggleChat()">
+        Chat với chúng tôi
+    </div>
+    <div id="chatbot-body" style="display: none;">
+        <div id="chatbot-messages">
+            <!-- Messages will appear here -->
+             
+        </div>
+        <input type="text" id="chatbot-input" placeholder="Nhập tin nhắn...">
+        <button onclick="sendMessage()">Gửi</button>
+    </div>
+</div>
     <div class="container-fluid bg-secondary text-white mt-5 py-5 px-sm-3 px-md-5">
         <div class="row justify-content-center align-items-center pt-5">
             <div class="col-lg-3 col-md-6 mb-5">
@@ -233,3 +303,44 @@ if (isset($_REQUEST['logout'])) {
 </body>
 
 </html>
+<script>
+function toggleChat() {
+    var chatbotBody = document.getElementById("chatbot-body");
+    if (chatbotBody.style.display === "none") {
+        chatbotBody.style.display = "block";
+    } else {
+        chatbotBody.style.display = "none";
+    }
+}
+
+function sendMessage() {
+    var input = document.getElementById("chatbot-input");
+    var message = input.value.trim();
+    if (message) {
+        var messages = document.getElementById("chatbot-messages");
+
+        // Display user message
+        var userMessage = document.createElement("div");
+        userMessage.classList.add("user-message");
+        userMessage.textContent = "Bạn: " + message;
+        messages.appendChild(userMessage);
+
+        // Send message to server and get response from chatbot
+        $.ajax({
+            url: 'get_bot_message.php',
+            type: 'post',
+            data: {txt: message},
+            success: function(result) {
+                // Display chatbot message
+                var botMessage = document.createElement("div");
+                botMessage.classList.add("bot-message");
+                botMessage.textContent = "Chatbot: " + result;
+                messages.appendChild(botMessage);
+                messages.scrollTop = messages.scrollHeight; // Scroll to bottom
+            }
+        });
+
+        input.value = ""; // Clear input field after sending message
+    }
+}
+</script>

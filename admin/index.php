@@ -78,6 +78,12 @@ if ($_SESSION['Role'] == 1) {
     elseif (isset($_REQUEST["deltintuc"])) {
         include("view/TinTuc/deltintuc.php");
     }
+    elseif (isset($_REQUEST["qlluong"])) {
+        include("view/Luong/listLuong.php");
+    }
+    elseif (isset($_REQUEST["tinhluong"])) {
+        include("view/Luong/tinhLuong.php");
+    }
      else {
         include_once("view/content.php");
     }
@@ -123,9 +129,14 @@ if ($_SESSION['Role'] == 1) {
         }
         elseif (isset($_REQUEST["deltintuc"])) {
             include("view/TinTuc/deltintuc.php");
-        }elseif (isset($_REQUEST["phanhoi"])) {
+        }
+        elseif (isset($_REQUEST["duyett"])) {
+            include("view/TinTuc/duyettin.php");
+        }
+        elseif (isset($_REQUEST["phanhoi"])) {
             include("view/vPhanHoi.php");
         }
+
         else {
             include_once("view/content.php");
         }

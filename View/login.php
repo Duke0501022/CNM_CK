@@ -1,39 +1,57 @@
 
 <style>
-  body {
-    font-family: 'Arial', sans-serif;
-    
-    background: url(../kindergarten-website-template/img/login.jpg);
-  }
-  .login-container {
-    max-width: 400px;
-    margin: 100px auto;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px 0px #000000;
-  }
-  .header-text {
-    margin-bottom: 30px;
-    color: #333333;
-    text-align: center;
-  }
-  .custom-btn {
-    background-color: #f8b400;
-    color: white;
-    border: none;
-  }
-  .custom-btn:hover {
-    background-color: #e5a300;
-  }
-  .form-link {
-    color: #333333;
-    text-align: center;
-    display: block;
-    margin-top: 15px;
-  }
-</style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url(../kindergarten-website-template/img/login.jpg);
+        }
+        .login-container {
+            max-width: 400px;
+            margin: 100px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px #000000;
+        }
+        .header-text {
+            margin-bottom: 30px;
+            color: #333333;
+            text-align: center;
+        }
+        .custom-btn {
+            background-color: #f8b400;
+            color: white;
+            border: none;
+        }
+        .custom-btn:hover {
+            background-color: #e5a300;
+        }
+        .form-link {
+            color: #333333;
+            text-align: center;
+            display: block;
+            margin-top: 15px;
+        }
+        .form-link-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-decoration: none;
+            color: black;
+            margin-top: 15px;
+        }
+        .form-link-container img {
+            margin-right: 10px;
+        }
+        .form-link-container:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
 </head>
+
 <body>
 
 <div class="login-container">
@@ -47,7 +65,11 @@
       <label for="loginPassword">Mật khẩu</label>
       <input type="password" class="form-control" name="password" id="loginPassword" placeholder="Mật khẩu">
     </div>
-    <button type="submit" name="submit" class="btn btn-primary btn-block mt-3" id="loginbtn" value="login" onclick="return validateForm()">Đăng nhập</button> 
+    <button type="submit" name="submit" class="btn btn-primary btn-block mt-3" id="loginbtn" value="login" onclick="return validateForm()">Đăng nhập</button>
+    <a href="index.php?googlelogin" class="form-link form-link-container">
+  <img src="./img/images (3).png" alt="Google" style="width:20px; height:20px; vertical-align:middle;">
+  Đăng nhập bằng Google
+</a>
     <a href="index.php?register" class="form-link">Bạn chưa có tài khoản? Đăng ký</a>
     <a href="index.php?forgot" class="form-link">Quên mật khẩu</a>
     <a href="admin/" class="form-link">Đăng nhập trang quản lý</a>

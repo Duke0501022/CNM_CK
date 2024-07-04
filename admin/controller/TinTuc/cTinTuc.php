@@ -26,6 +26,24 @@
             //  var_dump($table);
             return $table;
         }
+        public function  select_tintucwait($wait){
+            $p= new  mloaibaiviet();
+            $table = $p-> select_tintucwait($wait);
+            //  var_dump($table);
+            return $table;
+        }
+        function AcceptDish($idTinTuc)
+    {
+        $p = new mloaibaiviet();
+        $update = $p->AcceptDish($idTinTuc);
+        return $update;
+    }
+    function getAllDishWait($wait)
+    {
+        $p = new mloaibaiviet();
+        $tbl = $p->SelectAllDishWait($wait);
+        return  $tbl;
+    }
         
         #Hiển thị  doanh nghiệp id
       

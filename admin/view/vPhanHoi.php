@@ -70,12 +70,14 @@ $table = $p->get_lienhe();
                 <thead>
                   <tr>
                     <th style="text-align:center">STT</th>
+                    <th style="text-align:center">ID Tiêu đề</th>
                     <th style="text-align:center">Tiêu đề</th>
-                    <th style="text-align:center; display: none;">Nội dung</th>
+                    <th style="text-align:center; ">Nội dung</th>
                     <th style="text-align:center">Thời Gian</th>
                     <th style="text-align:center">Người Gửi</th>
                     <th style="text-align:center">Số điện thoại</th>
                     <th style="text-align:center">Email</th>
+                    <th style="text-align:center">Trạng thái</th>
                     <th style="text-align:center">Tác vụ</th>
                   </tr>
                 </thead>
@@ -87,13 +89,20 @@ $table = $p->get_lienhe();
                       while ($row = mysqli_fetch_assoc($table)) {
                         echo "<tr>";
                         echo "<td style='text-align:center'>" . $stt++ . "</td>"; // Hiển thị giá trị của biến $stt và sau đó tăng giá trị lên 1
+                        echo "<td style='text-align:center'>" . $row['idTieuDe'] . "</td>";
                         echo "<td style='text-align:center'>" . $row['tieuDe'] . "</td>";
-                        echo "<td style='text-align:center; display: none;'>" . $row['noiDung'] . "</td>";
+                        echo "<td style='text-align:center'>" . $row['noiDung'] . "</td>";
                         echo "<td style='text-align:center'>" . $row['thoiGian'] . "</td>";
                         echo "<td style='text-align:center'>" . $row['hoTen'] . "</td>";
                         echo "<td style='text-align:center'>" . $row['soDienThoai'] . "</td>";
                         echo "<td style='text-align:center'>" . $row['email'] . "</td>";
-                        echo "<td style='text-align:center'><button type='submit' class='btn btn-primary send'>Gửi phản hồi</button></td>";
+                        if ($row['status'] == 0) {
+                          echo "<td style='text-align:center'><span class='badge badge-warning'>Chưa Phản Hồi</span></td>";
+                          echo "<td style='text-align:center'><button type='submit' class='btn btn-primary send'>Gửi phản hồi</button></td>";
+                        } else {
+                          echo "<td style='text-align:center'><span class='badge badge-success'>Đã Phản Hồi</span></td>";
+                          echo "<td style='text-align:center'></td>"; // Thay thế nút bằng một badge hoặc thông báo khác // Nếu đã phản hồi, không hiển thị nút
+                        }
                         echo "</tr>";
                       }
                     }
@@ -112,6 +121,7 @@ $table = $p->get_lienhe();
     <!-- /.row -->
     <?php
     if (isset($_REQUEST['submit'])) {
+      $idTieuDe = $_REQUEST['idTieuDe'];
       $tieude = $_REQUEST['tieude'];
       $noidung = $_REQUEST['noidung'];
       $thoigian = $_REQUEST['thoigian'];
@@ -119,9 +129,16 @@ $table = $p->get_lienhe();
       $sodienthoai = $_REQUEST['sodienthoai'];
       $email = $_REQUEST['email'];
       $noidung_phanhoi = $_REQUEST['traloi'];
-
-      $send = $mail->send_mail_phanhoi($email, $sodienthoai, $hoTen, $tieude, $noidung, $noidung_phanhoi);
-      echo "<script>window.location.href = 'index.php?phanhoi';</script>";
+      
+      if (!empty($idTieuDe)) {
+        $p->AcceptPhanHoi($idTieuDe); // Update the status in the database
+        $mail->send_mail_phanhoi($email, $sodienthoai, $hoTen, $tieude, $noidung, $noidung_phanhoi);
+        echo '<script>alert("Duyệt thành công phản hồi")</script>';
+        echo "<script>window.location.href='index.php?phanhoi'</script>";
+    } else {
+        echo '<script>alert("Chưa chọn liên hệ để duyệt")</script>';
+    }
+     
     }
     ?>
 </div><!-- /.container-fluid -->
@@ -139,6 +156,10 @@ $table = $p->get_lienhe();
       <div class="modal-body">
         <div id="xemchitiet"></div>
         <form action="" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="diachi">ID Tiêu đề</label>
+            <input type="text" class="form-control" id="idtieude" name="idTieuDe" value="" readonly>
+          </div>
           <div class="form-group">
             <label for="diachi">Tiêu đề</label>
             <input type="text" class="form-control" id="tieude" name="tieude" value="" readonly>
@@ -181,16 +202,23 @@ $table = $p->get_lienhe();
   $(document).ready(function() {
     $('.send').on('click', function() {
       $('#send').modal('show');
-      $tr = $(this).closest('tr');
-      var data = $tr.children("td").map(function() {
-        return $(this).text();
-      }).get();
-      $('#tieude').val(data[1]);
-      $('#noidung').val(data[2]);
-      $('#thoigian').val(data[3]);
-      $('#hoTen').val(data[4]);
-      $('#sodienthoai').val(data[5]);
-      $('#email').val(data[6]);
+      var $row = $(this).closest('tr'); // Get the parent row of the button clicked
+      var idTieuDe = $row.find('td:eq(1)').text().trim(); // Column index 1 (ID Tiêu đề)
+      var tieude = $row.find('td:eq(2)').text().trim(); // Column index 2 (Tiêu đề)
+      var noidung = $row.find('td:eq(3)').text().trim(); // Column index 3 (Nội dung)
+      var thoigian = $row.find('td:eq(4)').text().trim(); // Column index 4 (Thời Gian)
+      var hoTen = $row.find('td:eq(5)').text().trim(); // Column index 5 (Người gửi)
+      var sodienthoai = $row.find('td:eq(6)').text().trim(); // Column index 6 (Số điện thoại)
+      var email = $row.find('td:eq(7)').text().trim(); // Column index 7 (Email)
+
+      // Set values to modal fields
+      $('#idtieude').val(idTieuDe);
+      $('#tieude').val(tieude);
+      $('#noidung').val(noidung);
+      $('#thoigian').val(thoigian);
+      $('#hoTen').val(hoTen);
+      $('#sodienthoai').val(sodienthoai);
+      $('#email').val(email);
     });
   });
 

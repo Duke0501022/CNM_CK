@@ -3,8 +3,9 @@
 include_once("controller/TinTuc/cTinTuc.php");
 
 $p = new cloaibaiviet();
-
-$table = $p->select_tintuc();
+$wait = 1;
+$table = $p->select_tintucwait($wait);
+$list_duyet = $p->getAllDishWait(0);
 
 ?>
 <style>
@@ -45,7 +46,25 @@ $table = $p->select_tintuc();
       </div>
     </div><!-- /.container-fluid -->
   </section>
+  <style>
+ @keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
+}
 
+.duyet {
+  display: inline-block;
+  animation: bounce 1s infinite;
+}
+
+</style>
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
@@ -53,7 +72,13 @@ $table = $p->select_tintuc();
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Danh sách tin tức</h3>  | <a href="?addtt">Thêm tin tức mới</a>
+               <button  class="btn btn-primary"><a href="?addtt" style="color: #fff;">Thêm tin tức mới</a></button>   | <button  class="btn btn-primary"><a href="?duyett" style="color: #fff;">Duyệt tin tức</a></button>
+            <?php if(!empty($list_duyet)){ ?>
+              <span class="text-danger duyet">Có <?php echo count($list_duyet); ?> tin cần duyệt</span>
+
+           <?php }else { ?>
+            <span>Không có món nào cần duyệt</span>
+            <?php } ?>   
               
               <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">

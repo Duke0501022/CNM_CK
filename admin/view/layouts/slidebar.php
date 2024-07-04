@@ -216,6 +216,27 @@
           </ul>
           
         </li>
+        
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-copy"></i>
+            <p>
+              Quản lí Lương
+              <i class="fas fa-angle-left right"></i>
+              <span class="badge badge-info right">2</span>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="?qlluong" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Danh sách lương</p>
+              </a>
+            </li>
+
+          </ul>
+          
+        </li>
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-copy"></i>
@@ -230,6 +251,15 @@
               <a href="?qltt" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Danh mục </p>
+              </a>
+            </li>
+
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="?duyett" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Duyệt tin tức</p>
               </a>
             </li>
 

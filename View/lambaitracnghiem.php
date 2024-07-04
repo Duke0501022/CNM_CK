@@ -34,6 +34,25 @@
         cursor: pointer;
     }
 </style>
+<script>
+        function validateForm() {
+            const radios = document.querySelectorAll('input[type="radio"]');
+            let isValid = true;
+
+            radios.forEach(radio => {
+                const name = radio.name;
+                if (!document.querySelector(`input[name="${name}"]:checked`)) {
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) {
+                alert('Vui lòng trả lời tất cả các câu hỏi trước khi nộp bài.');
+            }
+
+            return isValid;
+        }
+    </script>
 <?php
 include_once("Controller/cTracNghiem.php");
 
@@ -83,7 +102,7 @@ if (isset($_GET['idUnit'])) {
 ?>
         <div style="overflow: auto; max-height: 500px; text-align: center;">
             <h1>Trắc nghiệm Unit <?= $idUnit ?></h1>
-            <form action="index.php?lambaitracnghiem=<?= $idUnit ?>&idUnit=<?= $idUnit ?>" method="post">
+            <form action="index.php?lambaitracnghiem=<?= $idUnit ?>&idUnit=<?= $idUnit ?>" method="post" onsubmit="return validateForm();">
                 <table border="1" cellpadding="10" cellspacing="0" style="margin: 0 auto;">
                     <thead>
                         <tr>
@@ -132,3 +151,4 @@ if (isset($_REQUEST['nopbai'])) {
         echo "<script>alert('Đã xảy ra lỗi khi lưu kết quả bài trắc nghiệm.')</script>";
     }
 }
+

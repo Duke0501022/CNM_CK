@@ -24,17 +24,7 @@
 				return false;
 			}
 		}
-		public function update_status($tieude, $status) {
-			$p = new ketnoi();
-			if ($p->moketnoi($conn)) {
-				$query = "UPDATE lienhe SET status = '$status' WHERE tieuDe = '$tieude'";
-				$result = mysqli_query($conn, $query);
-				$p->dongketnoi($conn);
-				return $result;
-			} else {
-				return false;
-			}
-		}
+	
 		public function count_lh(){
 			
 			$p = new ketnoi();
@@ -72,7 +62,20 @@
 		// 
 		// 
 		// 
+		function AcceptPhanHoi($idTieuDe)
+	{
+		$p = new ketnoi();
+	   if ($p->moketnoi($conn)){
+		$update = '';
+		$update .= "UPDATE lienhe SET `status` = 1 WHERE idTieuDe = $idTieuDe ";
+		
+		$kq = mysqli_multi_query($conn, $update);
+		$p->dongketnoi($conn);
+		return $kq;
 	}
+	}
+}	
+	
 
 
  ?>

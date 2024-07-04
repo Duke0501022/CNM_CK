@@ -18,12 +18,7 @@
             $table = $p -> count_lh();
             return $table;
         }
-		public function update_status($tieude, $status) {
-			
-			$p = new mLienHe();
-			$table = $p->update_status($tieude, $status);
-			return  $table;
-		}
+		
 		// -----------------
 		// -----------------
 		// -----------------
@@ -43,6 +38,13 @@
 				return 0; //chèn không thành công
 			}
 		}
+		function AcceptPhanHoi($idTieuDe)
+		{
+			$p = new mLienHe();
+			$update = $p->AcceptPhanHoi($idTieuDe);
+			return $update;
+		}
 	}
+	
 
  ?>
